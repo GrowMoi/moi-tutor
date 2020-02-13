@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  transition: background 0.2s ease-in-out;
+  margin-left: 0.3rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.container:hover {
+  background-color: #eeeefa;
+}
+
+.container:focus {
+  background-color: #eeeefa;
+  outline: none;
+}
+
+.downIcon {
+  margin-left: 0.5rem;
+}
+
+.itemContainer {
+  padding: 0.5rem;
+  color: #323443 !important;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  margin-bottom: 0.2rem !important;
+}
+
+.itemContainer:last-child {
+  margin-bottom: 0 !important;
+}
+
+.itemContainer:hover {
+  background-color: #04838f;
+  color: white !important;
+}
+
+.itemText {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.menuContainer {
+  padding: 0.5rem !important;
+  width: 200px;
+}

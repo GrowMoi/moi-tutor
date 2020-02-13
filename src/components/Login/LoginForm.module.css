@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  text-align: center;
+}
+.button {
+  background-color: transparent;
+  color: #979797;
+  border-radius: 1rem;
+  border: none;
+  box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.4);
+}
+
+.itemRemember {
+  display: flex;
+}
+
+.moreActionsContainer {
+  margin-top: 1.5rem;
+}

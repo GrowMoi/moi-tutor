@@ -1,0 +1,34 @@
+.container {
+  background-color: white !important;
+  line-height: unset !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px !important;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.text {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: column nowrap;
+}
+
+.username {
+  margin-bottom: 0 !important;
+}
+
+.pageHeader :global(.ant-page-header) {
+  padding: 0px;
+}
+
+.pageHeader :global(.ant-page-header-heading) {
+  display: flex;
+  align-items: center;
+}

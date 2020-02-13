@@ -1,0 +1,35 @@
+.container {
+  max-width: 35rem;
+  position: absolute;
+  left: 25%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 50%;
+  padding: 2rem;
+}
+
+.header {
+  /* height: 80px; */
+  text-align: center;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.subtitle {
+  margin-bottom: 0px !important;
+}
+
+.card {
+  background-color: transparent;
+  border: none;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

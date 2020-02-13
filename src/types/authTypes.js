@@ -1,0 +1,5 @@
+export const LOGIN = 'LOGIN'
+export const LOGIN_IS_AUTHENTICATING = 'LOGIN_IS_AUTHENTICATING'
+export const LOGIN_HAS_ERROR = 'LOGIN_HAS_ERROR'
+export const LOGOUT = 'LOGOUT'
+export const RESET_APP = 'RESET_APP'
