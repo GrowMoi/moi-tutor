@@ -1,0 +1,11 @@
+ion-slides {
+  background-color: var(--ion-color-primary-contrast);
+  height: 100%;
+  max-width: 800px;
+}
+
+.swiper-slide {
+  background-color: var(--ion-color-primary-contrast);;
+  display: block;
+  margin-bottom: 64px;
+}
