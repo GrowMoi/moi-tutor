@@ -1,0 +1,8 @@
+{
+  "appId": "com.moisociallearning.moitutor",
+  "appName": "Moi Tutor",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}
