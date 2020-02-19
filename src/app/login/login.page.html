@@ -32,11 +32,17 @@
         </div>
       </ng-container>
     </div>
-    <ion-button expand="full" shape="round" color="success"
+    <ion-button expand="full"
+      shape="round"
+      color="success"
       type="submit"
       [disabled]="!loginForm.valid">Ingresar</ion-button>
   </form>
 </ion-content>
 <ion-footer>
-  <ion-button expand="full" fill="outline" shape="round" color="success">Full Button</ion-button>
+  <ion-button expand="full"
+    fill="outline"
+    shape="round"
+    color="success"
+    (click)="redirectToProducts()">¿Necesitas un usuario?</ion-button>
 </ion-footer>
