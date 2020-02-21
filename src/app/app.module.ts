@@ -12,6 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
+import { HttpService } from './services/http.service';
 
 export const store: Store<MoiTutorState> = createStore(
   rootReducer,
@@ -38,7 +39,8 @@ export const store: Store<MoiTutorState> = createStore(
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(ngRedux: NgRedux<MoiTutorState>) {
+  constructor(ngRedux: NgRedux<MoiTutorState>, httpService: HttpService) {
     ngRedux.provideStore(store);
+    httpService.createIntance();
   }
 }

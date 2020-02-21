@@ -3,6 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } fro
 import { Observable } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class IntroGuard implements CanActivate {
 
   }
   async canActivate() {
-    const isIntroShowed = await this.storage.get('isIntroShowed');
+    const isIntroShowed = await this.storage.get(environment.IS_INTRO_SHOWED_KEY);
     if (isIntroShowed) {
       return true;
     } else {

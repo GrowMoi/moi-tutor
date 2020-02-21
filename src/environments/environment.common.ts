@@ -1,4 +1,5 @@
 export const common = {
+  IS_INTRO_SHOWED_KEY: 'moiTutorIsIntroShowed',
   ACCESS_TOKEN_KEY: 'moiTutorAccessToken',
   CLIENT_KEY: 'moiTutorClient',
   EXPIRY_KEY: 'moiTutorExpiry',

@@ -1,24 +1,22 @@
-import { LOGIN } from './actions';
+import { Reducer, combineReducers } from 'redux';
+import loginReducer from './reducers/login';
+import { LoginState } from './reducers/login';
 
-export interface Action {
+export interface MoiTutorState {
+  login: LoginState;
+}
+
+export interface MoiAction {
   type: string;
   payload: any;
 }
 
-export interface MoiTutorState {
-  lastUpdate: Date;
-}
-
 export const INITIAL_STATE: MoiTutorState = {
-  lastUpdate: null,
+  login: {
+    lastUpdate: null
+  }
 };
 
-export function rootReducer(state: MoiTutorState, action: Action): MoiTutorState {
-  switch (action.type) {
-    case LOGIN:
-      return Object.assign({}, state, {
-        lastUpdate: new Date()
-      });
-  }
-  return state;
-}
+export const rootReducer: Reducer<MoiTutorState> = combineReducers({
+  login: loginReducer
+});

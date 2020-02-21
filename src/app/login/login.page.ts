@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthenticateService } from '../services/authenticate.service';
 import { NavController } from '@ionic/angular';
+import { LOGIN } from '../actions';
+import { NgRedux } from '@angular-redux/store';
+import { MoiTutorState } from '../store';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +28,8 @@ export class LoginPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticateService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private ngRedux: NgRedux<MoiTutorState>
   ) {
     this.loginForm = this.formBuilder.group({
       login: new FormControl('', Validators.compose([
@@ -41,9 +45,17 @@ export class LoginPage implements OnInit {
   }
 
   loginUser(credentials) {
-    this.authService.loginUser(credentials).then((res) => {
-      this.errorMessage = '';
-      this.navCtrl.navigateForward('/home');
+    const loginUser$ = this.authService.loginUser(credentials);
+
+    loginUser$.subscribe({
+      next: (response) => {
+        this.errorMessage = '';
+        this.ngRedux.dispatch({type: LOGIN});
+        this.navCtrl.navigateForward('/home');
+      },
+      error: (errMessage) => {
+        this.errorMessage = errMessage;
+      },
     });
   }
 
