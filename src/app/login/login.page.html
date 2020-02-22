@@ -1,43 +1,45 @@
 <ion-content>
-  <figure class="login-main-image ion-padding">
-    <img src="assets/img/logo.png" alt="">
-  </figure>
-  <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
-    <ion-item>
-      <ion-label position="stacked">Nombre de usuario o Email</ion-label>
-      <ion-input formControlName="login"></ion-input>
-    </ion-item>
-    <div class="validation-error">
-      <ng-container *ngFor="let validation of validationMessages.login">
-        <div *ngIf="
-        loginForm.get('login').hasError(validation.type) &&
-        (loginForm.get('login').dirty || loginForm.get('login').touched)
-        ">
-          {{ validation.message }}
+  <div class="container-main">
+    <div class="image-overlay"></div>
+    <div class="login-form-container">
+      <form [formGroup]="loginForm" class="login-form" (ngSubmit)="loginUser(loginForm.value)">
+        <ion-item>
+          <ion-label position="stacked">Nombre de usuario o Email</ion-label>
+          <ion-input formControlName="login"></ion-input>
+        </ion-item>
+        <div class="validation-error">
+          <ng-container *ngFor="let validation of validationMessages.login">
+            <div *ngIf="
+            loginForm.get('login').hasError(validation.type) &&
+            (loginForm.get('login').dirty || loginForm.get('login').touched)
+            ">
+              {{ validation.message }}
+            </div>
+          </ng-container>
         </div>
-      </ng-container>
-    </div>
 
-    <ion-item>
-      <ion-label position="stacked">Contraseña</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-    <div class="validation-error">
-      <ng-container *ngFor="let validation of validationMessages.login">
-        <div *ngIf="
-        loginForm.get('password').hasError(validation.type) &&
-        (loginForm.get('password').dirty || loginForm.get('password').touched)
-        ">
-          {{ validation.message }}
+        <ion-item>
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <div class="validation-error">
+          <ng-container *ngFor="let validation of validationMessages.login">
+            <div *ngIf="
+            loginForm.get('password').hasError(validation.type) &&
+            (loginForm.get('password').dirty || loginForm.get('password').touched)
+            ">
+              {{ validation.message }}
+            </div>
+          </ng-container>
         </div>
-      </ng-container>
+        <ion-button expand="full"
+          shape="round"
+          color="success"
+          type="submit"
+          [disabled]="!loginForm.valid">Ingresar</ion-button>
+      </form>
     </div>
-    <ion-button expand="full"
-      shape="round"
-      color="success"
-      type="submit"
-      [disabled]="!loginForm.valid">Ingresar</ion-button>
-  </form>
+  </div>
 </ion-content>
 <ion-footer>
   <ion-button expand="full"

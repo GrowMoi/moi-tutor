@@ -1,7 +1,32 @@
-.login-main-image {
+.container-main {
+  height: 100%;
+  background-image: url(../../assets/img/login_background_2.png);
+  background-size: contain;
+  background-repeat: repeat;
+  background-position: left;
+  background-color: var(--ion-color-primary-contrast);
+}
+
+// .image-overlay {
+//   position: absolute;
+//   height: 100%;
+//   width: 100%;
+//   z-index: 1;
+// }
+
+.login-form-container {
+  height: 100%;
+  background-image: url(../../assets/img/login_background_1.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+}
+
+.login-form {
+  width: 100%;
 }
 
 .validation-error {
