@@ -9,7 +9,7 @@ import { LoginState } from '../reducers/login';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-login',
+  selector: 'moi-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })

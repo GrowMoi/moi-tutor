@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-intro',
+  selector: 'moi-intro',
   templateUrl: './intro.page.html',
   styleUrls: ['./intro.page.scss'],
 })
