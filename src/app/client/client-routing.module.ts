@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { ClientPage } from './client.page';
+
 const routes: Routes = [
+  {
+    path: '',
+    component: ClientPage
+  }
 ];
 
 @NgModule({
