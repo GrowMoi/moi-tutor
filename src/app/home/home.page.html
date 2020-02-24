@@ -1,5 +1,5 @@
-<ion-split-pane>
-  <ion-menu type="push" contentId="moiMenuContentId">
+<ion-split-pane contentId="moiMainContentId">
+  <ion-menu type="overlay" contentId="moiMainContentId">
     <ion-header>
       <ion-toolbar>
         <ion-title>Menu</ion-title>
@@ -8,13 +8,16 @@
     <ion-content>
       <ion-list>
         <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
-          <ion-item [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath === p.url">
+          <ion-item [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath === p.url" class="moi-menu-item">
+            <ion-thumbnail class="moi-menu-item-thumbnail">
+              <img [src]="p.img">
+            </ion-thumbnail>
             <ion-label>{{ p.title}}</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>
     </ion-content>
   </ion-menu>
+  <ion-router-outlet id="moiMainContentId" main></ion-router-outlet>
 </ion-split-pane>
-<ion-router-outlet id="moiMenuContentId" main></ion-router-outlet>
 

@@ -10,11 +10,13 @@ export class HomePage {
   pages = [
     {
       title: 'MOI',
-      url: '/tutor/dashboard'
+      url: '/tutor/dashboard',
+      img: '../../assets/img/moi_navbar_brain.png'
     },
     {
       title: 'Usuario',
-      url: '/tutor/client'
+      url: '/tutor/client',
+      img: '../../assets/img/moi_navbar_client.png'
     },
   ];
 
