@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { StorageService } from '../services/storage.service';
-import axios from 'axios'
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root'

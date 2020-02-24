@@ -39,6 +39,7 @@
     "express": "^4.17.1",
     "express-favicon": "^2.0.1",
     "lodash": "^4.17.15",
+    "pre-commit": "^1.2.2",
     "redux": "4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "rxjs": "~6.5.1",
@@ -69,5 +70,8 @@
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "pre-commit": [
+    "lint"
+  ]
 }

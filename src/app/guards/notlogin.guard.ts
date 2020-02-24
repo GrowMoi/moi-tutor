@@ -13,7 +13,6 @@ export class NotloginGuard implements CanActivate {
 
   async canActivate() {
     const isLoggedIn = await this.authService.userIsLoggedIn();
-    debugger
     if (!isLoggedIn) {
       return true;
     } else {

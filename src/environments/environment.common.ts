@@ -17,4 +17,4 @@ export const common = {
     ADMIN: 'admin',
     TUTOR: 'tutor'
   }
-}
+};
