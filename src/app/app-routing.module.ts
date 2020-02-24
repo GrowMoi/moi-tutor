@@ -8,16 +8,6 @@ import { HomePageModule } from './home/home.module';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'tutor/dashboard',
-    pathMatch: 'full'
-  },
-  {
-    path: 'tutor',
-    redirectTo: 'tutor/dashboard',
-    pathMatch: 'full'
-  },
-  {
     path: 'tutor',
     // loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
     // canActivate: [LoginGuard, IntroGuard]
@@ -47,6 +37,16 @@ const routes: Routes = [
   //   path: 'dashboard',
   //   loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
   // },
+  {
+    path: 'tutor',
+    redirectTo: 'tutor/dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    redirectTo: 'tutor/dashboard',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({
