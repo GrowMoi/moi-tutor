@@ -1,5 +1,10 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
+@font-face {
+  font-family: 'MoiMuseo';
+  src: local('MoiMuseo'), url(../assets/fonts/museo.woff) format('woff');
+}
+
 
 /** Ionic CSS Variables **/
 :root {
@@ -74,6 +79,8 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  --ion-font-family: 'MoiMuseo';
 }
 
 @media (prefers-color-scheme: dark) {
