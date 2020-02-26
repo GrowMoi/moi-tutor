@@ -1,0 +1,42 @@
+:host {
+  --base-color-light-blue: #47BAE8;
+  --base-color-light-green: #77BF5D;
+  --base-color-yellow: #D6B34E;
+  --base-color-red: #F0755C;
+  --base-color-purple: #DA4694;
+  --base-color-dark-green: #1B864A;
+  --base-color-brown: #805A41;
+  --base-color-pink: #D84A93;
+  --base-color-orange: #EC765D;
+
+  @mixin apply-theme($base-color) {
+    ion-card-header {
+      background-color: $base-color;
+      ion-card-title {
+        color: var(--ion-color-primary-contrast);
+      }
+    }
+  }
+
+  .card-light-blue {
+    @include apply-theme(var(--base-color-light-blue));
+  }
+
+  .card-light-green {
+    @include apply-theme(var(--base-color-light-green));
+  }
+
+  .card-light-yellow {
+    @include apply-theme(var(--base-color-yellow));
+  }
+
+  .card-light-pink {
+    @include apply-theme(var(--base-color-pink));
+  }
+
+  .card-light-red {
+    @include apply-theme(var(--base-color-red));
+  }
+
+  .card-default {}
+}
