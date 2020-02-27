@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { DashboardPage } from './dashboard.page';
+import { CardComponent } from '../components/card/card.component';
 
 describe('DashboardPage', () => {
   let component: DashboardPage;
@@ -9,7 +10,10 @@ describe('DashboardPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardPage ],
+      declarations: [
+        DashboardPage,
+        CardComponent
+      ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 

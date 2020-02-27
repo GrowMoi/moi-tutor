@@ -8,6 +8,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
+    "test:ci": "ng test --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "heroku-postbuild": "ng build --configuration=staging",
@@ -72,6 +73,7 @@
   },
   "description": "An Ionic project",
   "pre-commit": [
-    "lint"
+    "lint",
+    "test:ci"
   ]
 }
