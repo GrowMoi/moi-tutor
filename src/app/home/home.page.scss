@@ -5,3 +5,9 @@
 .moi-menu-item-thumbnail {
   margin-right: 0.5rem;
 }
+
+.moi-main-menu {
+  :host {
+    --width: 250px;
+  }
+}

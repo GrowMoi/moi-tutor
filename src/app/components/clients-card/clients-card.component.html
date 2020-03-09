@@ -1,0 +1,28 @@
+<moi-card title="Usuarios" theme="light-blue">
+  <div class="moi-clients-card-container">
+    <ion-spinner name="lines" *ngIf="loading$ | async; else mainBlock"></ion-spinner>
+    <ng-template #mainBlock>
+      <ion-searchbar></ion-searchbar>
+      <ion-grid class="moi-clients-grid">
+        <ion-row *ngFor="let client of clients$ | async | keyvalue" class="moi-clients-client-row">
+          <ion-col size="2">
+            <img class="moi-clients-img-check" src="assets/img/check_blue.png">
+          </ion-col>
+          <ion-col size="3">
+            <img src="assets/img/client_avatar_inactive.png">
+          </ion-col>
+          <ion-col size="7">
+            <ion-grid>
+              <ion-row class="moi-clients-row-name">
+                {{client.value.name || client.value.username}}
+              </ion-row>
+              <ion-row class="moi-clients-row-email">
+                {{client.value.email}}
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-template>
+  </div>
+</moi-card>

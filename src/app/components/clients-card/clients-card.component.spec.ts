@@ -1,22 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { DashboardPage } from './dashboard.page';
-import { CardComponent } from '../components/card/card.component';
-import { ClientsCardComponent } from '../components/clients-card/clients-card.component';
+import { ClientsCardComponent } from './clients-card.component';
+import { CardComponent } from '../card/card.component';
 import { IonicStorageModule } from '@ionic/storage';
 import { NgReduxModule } from '@angular-redux/store';
 
-describe('DashboardPage', () => {
-  let component: DashboardPage;
-  let fixture: ComponentFixture<DashboardPage>;
+describe('ClientsCardComponent', () => {
+  let component: ClientsCardComponent;
+  let fixture: ComponentFixture<ClientsCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        DashboardPage,
-        CardComponent,
         ClientsCardComponent,
+        CardComponent
       ],
       imports: [
         NgReduxModule,
@@ -25,7 +23,7 @@ describe('DashboardPage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DashboardPage);
+    fixture = TestBed.createComponent(ClientsCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

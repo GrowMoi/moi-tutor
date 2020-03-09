@@ -8,6 +8,7 @@ import { DashboardPageRoutingModule } from './dashboard-routing.module';
 
 import { DashboardPage } from './dashboard.page';
 import { CardComponent } from '../components/card/card.component';
+import { ClientsCardComponent } from '../components/clients-card/clients-card.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { CardComponent } from '../components/card/card.component';
   ],
   declarations: [
     DashboardPage,
-    CardComponent
+    CardComponent,
+    ClientsCardComponent
   ]
 })
 export class DashboardPageModule {}
