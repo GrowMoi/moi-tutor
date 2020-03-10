@@ -10,6 +10,7 @@ import { DashboardPage } from './dashboard.page';
 import { CardComponent } from '../components/card/card.component';
 import { ClientsCardComponent } from '../components/clients-card/clients-card.component';
 import { RecommendationsCardComponent } from '../components/recommendations-card/recommendations-card.component';
+import { MessagesCardComponent } from '../components/messages-card/messages-card.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { RecommendationsCardComponent } from '../components/recommendations-card
     DashboardPage,
     CardComponent,
     ClientsCardComponent,
-    RecommendationsCardComponent
+    RecommendationsCardComponent,
+    MessagesCardComponent
   ]
 })
 export class DashboardPageModule {}
