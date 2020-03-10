@@ -1,5 +1,14 @@
-<moi-card title="Enviar mensaje" theme="pink">
+<moi-card title="Enviar un Test" theme="red">
   <form action="">
+    <ion-item>
+      <ion-label>Selecciona un nivel</ion-label>
+      <ion-select value="03">
+        <ion-select-option value="01">Nivel 1</ion-select-option>
+        <ion-select-option value="02">Nivel 2</ion-select-option>
+        <ion-select-option value="03">Nivel 3</ion-select-option>
+        <ion-select-option value="04">Nivel 4</ion-select-option>
+      </ion-select>
+    </ion-item>
     <ion-item>
       <ion-label>Enviar a</ion-label>
       <ion-select value="03">
@@ -14,24 +23,16 @@
       <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked">Título</ion-label>
-      <ion-input placeholder="Título del mensaje"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Contenido</ion-label>
-      <ion-textarea placeholder="Un contenido..."></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Video destacado</ion-label>
-      <ion-input placeholder="https://www.youtube.com/watch?v=qGh7uc5PQuM"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Imagen</ion-label>
-      <ion-input accept=".jpg, .jpeg, .png" type="file"></ion-input>
+      <ion-button color="primary">
+        ver preguntas
+      </ion-button>
     </ion-item>
     <ion-item>
       <ion-toolbar>
         <ion-buttons slot="primary">
+          <ion-button color="secondary">
+            Crear nuevo nivel
+          </ion-button>
           <ion-button color="primary">
             Enviar
           </ion-button>

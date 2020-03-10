@@ -11,6 +11,7 @@ import { CardComponent } from '../components/card/card.component';
 import { ClientsCardComponent } from '../components/clients-card/clients-card.component';
 import { RecommendationsCardComponent } from '../components/recommendations-card/recommendations-card.component';
 import { MessagesCardComponent } from '../components/messages-card/messages-card.component';
+import { QuizzesCardComponent } from '../components/quizzes-card/quizzes-card.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { MessagesCardComponent } from '../components/messages-card/messages-card
     CardComponent,
     ClientsCardComponent,
     RecommendationsCardComponent,
-    MessagesCardComponent
+    MessagesCardComponent,
+    QuizzesCardComponent
   ]
 })
 export class DashboardPageModule {}
