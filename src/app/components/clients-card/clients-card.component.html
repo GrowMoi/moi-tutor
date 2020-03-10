@@ -3,7 +3,23 @@
     <ion-spinner name="lines" *ngIf="loading$ | async; else mainBlock"></ion-spinner>
     <ng-template #mainBlock>
       <ion-searchbar></ion-searchbar>
-      <ion-grid class="moi-clients-grid">
+      <ion-content class="moi-clients-list-content">
+        <ion-list>
+          <ion-item *ngFor="let client of clients$ | async | keyvalue">
+            <ion-avatar slot="start">
+              <img src="assets/img/client_avatar_inactive.png">
+            </ion-avatar>
+            <ion-label>
+              <h2>{{client.value.name || client.value.username}}</h2>
+              <h3>{{client.value.email}}</h3>
+              <p>{{client.value.username}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+
+
+      <!-- <ion-grid class="moi-clients-grid">
         <ion-row *ngFor="let client of clients$ | async | keyvalue" class="moi-clients-client-row">
           <ion-col size="2">
             <img class="moi-clients-img-check" src="assets/img/check_blue.png">
@@ -22,7 +38,7 @@
             </ion-grid>
           </ion-col>
         </ion-row>
-      </ion-grid>
+      </ion-grid> -->
     </ng-template>
   </div>
 </moi-card>

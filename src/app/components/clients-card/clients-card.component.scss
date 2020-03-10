@@ -6,30 +6,6 @@
   min-height: 10rem;
 }
 
-.moi-clients-grid {
-  width: 100%;
-  max-height: 30rem;
-  overflow: scroll;
-
-
-  ion-col {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .moi-clients-img-check {
-      width: 100%;
-      height: auto;
-    }
-    .moi-clients-row-name {
-      font-weight: bold;
-    }
-
-    .moi-clients-row-name, .moi-clients-row-email {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-  }
+.moi-clients-list-content {
+  min-height: 30rem;
 }
