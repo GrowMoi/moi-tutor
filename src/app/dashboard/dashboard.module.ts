@@ -12,13 +12,15 @@ import { ClientsCardComponent } from '../components/clients-card/clients-card.co
 import { RecommendationsCardComponent } from '../components/recommendations-card/recommendations-card.component';
 import { MessagesCardComponent } from '../components/messages-card/messages-card.component';
 import { QuizzesCardComponent } from '../components/quizzes-card/quizzes-card.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DashboardPageRoutingModule
+    DashboardPageRoutingModule,
+    PipesModule
   ],
   declarations: [
     DashboardPage,
@@ -26,7 +28,7 @@ import { QuizzesCardComponent } from '../components/quizzes-card/quizzes-card.co
     ClientsCardComponent,
     RecommendationsCardComponent,
     MessagesCardComponent,
-    QuizzesCardComponent
+    QuizzesCardComponent,
   ]
 })
 export class DashboardPageModule {}

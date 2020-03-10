@@ -5,14 +5,14 @@
       <ion-searchbar></ion-searchbar>
       <ion-content class="moi-clients-list-content">
         <ion-list>
-          <ion-item *ngFor="let client of clients$ | async | keyvalue">
+          <ion-item *ngFor="let client of clients$ | async | format">
             <ion-avatar slot="start">
               <img src="assets/img/client_avatar_inactive.png">
             </ion-avatar>
             <ion-label>
-              <h2>{{client.value.name || client.value.username}}</h2>
-              <h3>{{client.value.email}}</h3>
-              <p>{{client.value.username}}</p>
+              <h2>{{client.name || client.username}}</h2>
+              <h3>{{client.email}}</h3>
+              <p>{{client.username}}</p>
             </ion-label>
           </ion-item>
         </ion-list>
