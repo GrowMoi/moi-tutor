@@ -1,0 +1,47 @@
+<moi-card title="Enviar Recomendaciones" theme="yellow">
+  <form action="">
+    <ion-item>
+      <ion-label>Estudiante</ion-label>
+      <ion-select value="03">
+        <ion-select-option value="01">Juanito</ion-select-option>
+        <ion-select-option value="02">Ana</ion-select-option>
+        <ion-select-option value="03">Pedro</ion-select-option>
+        <ion-select-option value="04">María</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Enviar a todos</ion-label>
+      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Recompensa</ion-label>
+      <ion-select value="03">
+        <ion-select-option value="01">Recompensa 1</ion-select-option>
+        <ion-select-option value="02">Recompensa 2</ion-select-option>
+        <ion-select-option value="03">Recompensa 3</ion-select-option>
+        <ion-select-option value="04">Recompensa 4</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Contenidos no aprendidos</ion-label>
+      <ion-select value="02" multiple>
+        <ion-select-option value="01">Contenido 1</ion-select-option>
+        <ion-select-option value="02">Contenido 2</ion-select-option>
+        <ion-select-option value="03">Contenido 3</ion-select-option>
+        <ion-select-option value="04">Contenido 4</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-toolbar>
+        <ion-buttons slot="primary">
+          <ion-button color="secondary">
+            Crear recompensa
+          </ion-button>
+          <ion-button color="primary">
+            Enviar
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-item>
+  </form>
+</moi-card>
