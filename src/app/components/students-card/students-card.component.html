@@ -1,0 +1,37 @@
+<moi-card title="Mis Alumnos" theme="light-green">
+  <div class="moi-students-card-container">
+    <ion-spinner name="lines" *ngIf="loading$ | async; else mainBlock"></ion-spinner>
+    <ng-template #mainBlock>
+      <ion-searchbar></ion-searchbar>
+      <ion-content class="moi-students-list-content">
+        <ion-list>
+          <ion-item *ngFor="let student of students$ | async | format">
+            <ion-avatar slot="start">
+              <img src="assets/img/client_avatar_inactive.png">
+            </ion-avatar>
+            <ion-label class="moi-students-list-item-label">
+              <h2>{{student.name || student.username}}</h2>
+              <h3>{{student.email}}</h3>
+              <p>{{student.username}}</p>
+            </ion-label>
+            <ion-button *ngIf="student.status === 'accepted'" color="secondary">
+              <ion-icon slot="icon-only" name="bar-chart-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+      <ion-item>
+        <ion-toolbar>
+          <ion-buttons slot="primary">
+            <ion-button color="secondary">
+              Exportar Seleccionados
+            </ion-button>
+            <ion-button color="primary">
+              Exportar Todos
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-item>
+    </ng-template>
+  </div>
+</moi-card>

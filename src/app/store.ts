@@ -1,10 +1,12 @@
 import { Reducer, combineReducers } from 'redux';
 import loginReducer, { LoginState } from './reducers/login';
 import clientsReducer, { ClientsState } from './reducers/clients';
+import studentsReducer, { StudentsState } from './reducers/students';
 
 export interface MoiTutorState {
   login: LoginState;
   clients: ClientsState;
+  students: StudentsState;
 }
 
 export interface MoiAction {
@@ -19,10 +21,15 @@ export const INITIAL_STATE: MoiTutorState = {
   clients: {
     data: [],
     loading: false
+  },
+  students: {
+    data: [],
+    loading: false
   }
 };
 
 export const rootReducer: Reducer<MoiTutorState> = combineReducers({
   login: loginReducer,
   clients: clientsReducer,
+  students: studentsReducer,
 });

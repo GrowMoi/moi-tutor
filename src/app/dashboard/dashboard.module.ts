@@ -13,6 +13,7 @@ import { RecommendationsCardComponent } from '../components/recommendations-card
 import { MessagesCardComponent } from '../components/messages-card/messages-card.component';
 import { QuizzesCardComponent } from '../components/quizzes-card/quizzes-card.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { StudentsCardComponent } from '../components/students-card/students-card.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { PipesModule } from '../pipes/pipes.module';
     RecommendationsCardComponent,
     MessagesCardComponent,
     QuizzesCardComponent,
+    StudentsCardComponent,
   ]
 })
 export class DashboardPageModule {}
