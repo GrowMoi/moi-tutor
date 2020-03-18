@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { HttpService } from '../services/http.service';
 import { UtilsService } from './utils.service';
 import { NgRedux } from '@angular-redux/store';
