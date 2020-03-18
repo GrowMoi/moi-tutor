@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpService } from './services/http.service';
+import { FormatPipe } from './pipes/format.pipe';
 
 export const store: Store<MoiTutorState> = createStore(
   rootReducer,
@@ -34,6 +35,7 @@ export const store: Store<MoiTutorState> = createStore(
   providers: [
     StatusBar,
     SplashScreen,
+    FormatPipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

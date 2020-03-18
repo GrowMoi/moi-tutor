@@ -5,15 +5,19 @@
       <ion-searchbar></ion-searchbar>
       <ion-content class="moi-clients-list-content">
         <ion-list>
-          <ion-item *ngFor="let client of clients$ | async | format">
+          <ion-item *ngFor="let client of clients | format"
+            class="moi-clients-list-item"
+            (click)="selectClient(client)">
             <ion-avatar slot="start">
-              <img src="assets/img/client_avatar_inactive.png">
+              <img *ngIf="!client.selected" src="assets/img/client_avatar_inactive.png">
+              <img *ngIf="client.selected" src="assets/img/client_avatar.png">
             </ion-avatar>
             <ion-label>
               <h2>{{client.name || client.username}}</h2>
               <h3>{{client.email}}</h3>
               <p>{{client.username}}</p>
             </ion-label>
+            <img class="moi-clients-list-check" *ngIf="client.selected" src="assets/img/check_blue.png">
           </ion-item>
         </ion-list>
       </ion-content>
