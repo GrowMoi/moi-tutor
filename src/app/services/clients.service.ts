@@ -3,10 +3,23 @@ import { HttpService } from '../services/http.service';
 import { UtilsService } from './utils.service';
 import { NgRedux } from '@angular-redux/store';
 import { MoiTutorState } from '../store';
-import { GET_CLIENTS, LOAD_CLIENTS, LOAD_CLIENTS_SUCCESS, LOAD_CLIENTS_ERROR } from '../actions';
+import {
+  GET_CLIENTS,
+  LOAD_CLIENTS,
+  LOAD_CLIENTS_SUCCESS,
+  LOAD_CLIENTS_ERROR,
+  START_REMOVE_SELECTED_CLIENTS_FROM_LIST,
+  REMOVE_SELECTED_CLIENTS_FROM_LIST_SUCCESS,
+  REMOVE_SELECTED_CLIENTS_FROM_LIST_ERROR
+} from '../actions';
+import { Observable } from 'rxjs';
 
 interface ClientParams {
   page: '1';
+}
+
+interface ClientSendRequestData {
+  user_ids: number[];
 }
 
 @Injectable({
@@ -35,6 +48,29 @@ export class ClientsService {
     .catch((error) => {
       const message = this.utilsService.getErrorMessage(error);
       this.ngRedux.dispatch({type: LOAD_CLIENTS_ERROR });
+    });
+  }
+
+  sendRequestToClients(data: ClientSendRequestData) {
+    this.ngRedux.dispatch({type: START_REMOVE_SELECTED_CLIENTS_FROM_LIST});
+    return new Observable(subscriber => {
+      this.httpService.http({
+        method: 'post',
+        url: '/tutor/user_tutors/send_request',
+        data,
+      })
+      .then((response) => {
+        const message = response.data && response.data.message ? response.data.message : response.data;
+        subscriber.next(message);
+        subscriber.complete();
+        const selectedClientIds = data.user_ids;
+        this.ngRedux.dispatch({type: REMOVE_SELECTED_CLIENTS_FROM_LIST_SUCCESS, payload: selectedClientIds});
+      })
+      .catch((error) => {
+        const message = this.utilsService.getErrorMessage(error);
+        subscriber.error(message);
+        this.ngRedux.dispatch({type: REMOVE_SELECTED_CLIENTS_FROM_LIST_ERROR});
+      });
     });
   }
 }

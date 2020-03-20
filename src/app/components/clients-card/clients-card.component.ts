@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ClientsState } from 'src/app/reducers/clients';
 import _ from 'lodash';
 import { FormatPipe } from 'src/app/pipes/format.pipe';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'moi-clients-card',
@@ -13,15 +14,16 @@ import { FormatPipe } from 'src/app/pipes/format.pipe';
 })
 export class ClientsCardComponent implements OnInit {
 
-  clients = [];
   @select(['clients', 'data']) clients$: Observable<ClientsState>;
   @select(['clients', 'loading']) loading$: Observable<ClientsState>;
-
+  @select(['clients', 'sending']) sending$: Observable<ClientsState>;
+  clients = [];
   selectedClients = [];
 
   constructor(
     private clientsService: ClientsService,
-    private formatPipe: FormatPipe
+    private formatPipe: FormatPipe,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -29,7 +31,7 @@ export class ClientsCardComponent implements OnInit {
     this.clients$.subscribe((data) => {
       if (!_.isEmpty(data)) {
         const arrayData =  this.formatPipe.transform(_.cloneDeep(data));
-        this.clients = this.clients.concat(arrayData);
+        this.clients = arrayData;
       }
     });
   }
@@ -44,6 +46,35 @@ export class ClientsCardComponent implements OnInit {
       client.selected = true;
       this.selectedClients.push(client);
     }
+  }
+
+  sendSelectedClients() {
+    const apiParams = {
+      user_ids: this.selectedClients.map<number>(item => item.id)
+    };
+
+    this.clientsService.sendRequestToClients(apiParams)
+      .subscribe({
+        next: async (message: string) => {
+          this.selectedClients = [];
+          const toast = await this.toastController.create({
+            message,
+            color: 'success',
+            duration: 3000,
+            position: 'top'
+          });
+          toast.present();
+        },
+        error:  async (message: string) => {
+          const toast = await this.toastController.create({
+            message,
+            color: 'danger',
+            duration: 3000,
+            position: 'top'
+          });
+          toast.present();
+        }
+      });
   }
 
 }

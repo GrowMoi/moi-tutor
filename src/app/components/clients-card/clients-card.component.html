@@ -5,7 +5,7 @@
       <ion-searchbar></ion-searchbar>
       <ion-content class="moi-clients-list-content">
         <ion-list>
-          <ion-item *ngFor="let client of clients | format"
+          <ion-item *ngFor="let client of clients"
             class="moi-clients-list-item"
             (click)="selectClient(client)">
             <ion-avatar slot="start">
@@ -21,10 +21,13 @@
           </ion-item>
         </ion-list>
       </ion-content>
-      <ion-item>
+      <ion-item lines="none" class="moi-clients-item-buttons">
         <ion-toolbar>
-          <ion-buttons slot="primary">
-            <ion-button color="primary">
+          <ion-buttons slot="end">
+            <ion-button [disabled]="(selectedClients.length === 0) || (sending$ | async)"
+              fill="outline"
+              color="primary"
+              (click)="sendSelectedClients()">
               Enviar Solicitud
             </ion-button>
           </ion-buttons>

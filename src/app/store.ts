@@ -20,7 +20,8 @@ export const INITIAL_STATE: MoiTutorState = {
   },
   clients: {
     data: [],
-    loading: false
+    loading: false,
+    sending: false,
   },
   students: {
     data: [],
