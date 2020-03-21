@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { RecommendationsCardComponent } from './recommendations-card.component';
+import { CardComponent } from '../card/card.component';
 
 describe('RecommendationsCardComponent', () => {
   let component: RecommendationsCardComponent;
@@ -9,7 +10,10 @@ describe('RecommendationsCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecommendationsCardComponent ],
+      declarations: [
+        RecommendationsCardComponent,
+        CardComponent,
+      ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 

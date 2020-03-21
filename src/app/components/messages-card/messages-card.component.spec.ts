@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { MessagesCardComponent } from './messages-card.component';
+import { CardComponent } from '../card/card.component';
 
 describe('MessagesCardComponent', () => {
   let component: MessagesCardComponent;
@@ -9,7 +10,10 @@ describe('MessagesCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessagesCardComponent ],
+      declarations: [
+        MessagesCardComponent,
+        CardComponent,
+      ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
