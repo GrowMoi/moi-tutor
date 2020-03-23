@@ -1,8 +1,11 @@
 <moi-card title="Usuarios" theme="light-blue">
   <div class="moi-clients-card-container">
-    <ion-spinner name="lines" *ngIf="loading$ | async; else mainBlock"></ion-spinner>
+    <ion-toolbar>
+      <ion-searchbar debounce="500" (ionChange)="searchClients($event)">
+      </ion-searchbar>
+    </ion-toolbar>
+    <ion-spinner class="moi-clients-loading" name="lines" *ngIf="loading$ | async; else mainBlock"></ion-spinner>
     <ng-template #mainBlock>
-      <ion-searchbar></ion-searchbar>
       <ion-content class="moi-clients-list-content">
         <ion-list>
           <ion-item *ngFor="let client of clients"

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientsService } from 'src/app/services/clients.service';
+import { ClientsService, ClientParams } from 'src/app/services/clients.service';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { ClientsState } from 'src/app/reducers/clients';
@@ -17,6 +17,10 @@ export class ClientsCardComponent implements OnInit {
   @select(['clients', 'data']) clients$: Observable<ClientsState>;
   @select(['clients', 'loading']) loading$: Observable<ClientsState>;
   @select(['clients', 'sending']) sending$: Observable<ClientsState>;
+  params: ClientParams = {
+    page: '1',
+    search: '',
+  };
   clients = [];
   selectedClients = [];
 
@@ -27,7 +31,7 @@ export class ClientsCardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.clientsService.getClients();
+    this.clientsService.getClients(this.params);
     this.clients$.subscribe((data) => {
       if (!_.isEmpty(data)) {
         const arrayData =  this.formatPipe.transform(_.cloneDeep(data));
@@ -36,7 +40,7 @@ export class ClientsCardComponent implements OnInit {
     });
   }
 
-  selectClient(client) {
+  selectClient(client: any) {
     const itemIndex = this.selectedClients.indexOf(client);
     const itemExists = itemIndex >= 0;
     if (itemExists) {
@@ -75,6 +79,13 @@ export class ClientsCardComponent implements OnInit {
           toast.present();
         }
       });
+  }
+
+  searchClients(event: any) {
+    const { value = '' } = event.detail || {};
+    this.selectedClients = [];
+    this.params.search = value;
+    this.clientsService.getClients(this.params);
   }
 
 }

@@ -32,7 +32,6 @@ export default function clientsReducer(state: ClientsState = {} as any, action: 
       const newState = {
         ...state,
         data: {
-          ...state.data,
           ...action.payload
         }
       };

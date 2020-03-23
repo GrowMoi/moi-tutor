@@ -14,8 +14,9 @@ import {
 } from '../actions';
 import { Observable } from 'rxjs';
 
-interface ClientParams {
+export interface ClientParams {
   page: '1';
+  search?: '';
 }
 
 interface ClientSendRequestData {
