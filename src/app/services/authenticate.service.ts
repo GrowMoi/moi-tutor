@@ -44,11 +44,15 @@ export class AuthenticateService {
   }
 
   loginUser(credentials: LoginCredentials) {
+    const apiCredentials = {
+      ...credentials,
+      login: credentials.login.trim()
+    };
     return new Observable((subscriber) => {
       this.httpService.http({
         method: 'post',
         url: '/api/auth/user/sign_in',
-        data: credentials
+        data: apiCredentials
       })
         .then((response) => {
           const userInfo = response.data && response.data.data ? response.data.data : response.data;
