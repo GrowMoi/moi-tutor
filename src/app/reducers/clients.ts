@@ -8,9 +8,10 @@ import {
   START_REMOVE_SELECTED_CLIENTS_FROM_LIST,
   REMOVE_SELECTED_CLIENTS_FROM_LIST_SUCCESS,
   REMOVE_SELECTED_CLIENTS_FROM_LIST_ERROR,
+  RESET_CLIENTS,
 } from '../actions';
 
-interface Client {
+export interface Client {
   id: number;
   email: string;
   name: string;
@@ -20,8 +21,13 @@ interface Client {
     url: string
   };
 }
+export interface ClientMeta {
+  total_items: number;
+  total_pages: number;
+}
 export interface ClientsState {
   data: Array<Client>;
+  meta: ClientMeta;
   loading: boolean;
   sending: boolean;
 }
@@ -29,10 +35,24 @@ export interface ClientsState {
 export default function clientsReducer(state: ClientsState = {} as any, action: MoiAction): ClientsState {
   switch (action.type) {
     case GET_CLIENTS: {
+      const { data = [], meta = {} } = action.payload;
       const newState = {
         ...state,
-        data: {
-          ...action.payload
+        data: [
+          ...state.data,
+          ...data
+        ],
+        meta,
+      };
+      return newState;
+    }
+    case RESET_CLIENTS: {
+      const newState = {
+        ...state,
+        data: [],
+        meta: {
+          total_items: 0,
+          total_pages: 0
         }
       };
       return newState;

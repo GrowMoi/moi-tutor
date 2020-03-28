@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClientsService, ClientParams } from 'src/app/services/clients.service';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
-import { ClientsState } from 'src/app/reducers/clients';
-import _ from 'lodash';
-import { FormatPipe } from 'src/app/pipes/format.pipe';
+import { ClientsState, Client, ClientMeta } from 'src/app/reducers/clients';
 import { ToastController } from '@ionic/angular';
+import { IonInfiniteScroll } from '@ionic/angular';
+import _ from 'lodash';
 
+interface InfiniteScrollEvents {
+  target: any;
+}
 @Component({
   selector: 'moi-clients-card',
   templateUrl: './clients-card.component.html',
@@ -14,29 +17,43 @@ import { ToastController } from '@ionic/angular';
 })
 export class ClientsCardComponent implements OnInit {
 
+  @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
   @select(['clients', 'data']) clients$: Observable<ClientsState>;
-  @select(['clients', 'loading']) loading$: Observable<ClientsState>;
-  @select(['clients', 'sending']) sending$: Observable<ClientsState>;
+  @select(['clients', 'meta']) meta$: Observable<ClientMeta>;
+  @select(['clients', 'loading']) loading$: Observable<boolean>;
+  @select(['clients', 'sending']) sending$: Observable<boolean>;
   params: ClientParams = {
-    page: '1',
+    page: 1,
     search: '',
   };
-  clients = [];
+  clients: Client[];
   selectedClients = [];
+  scrollEvents: InfiniteScrollEvents;
+  meta: ClientMeta;
 
   constructor(
     private clientsService: ClientsService,
-    private formatPipe: FormatPipe,
     private toastController: ToastController
   ) { }
 
   ngOnInit() {
     this.clientsService.getClients(this.params);
-    this.clients$.subscribe((data) => {
+    this.clients$.subscribe((data: any) => {
       if (!_.isEmpty(data)) {
-        const arrayData =  this.formatPipe.transform(_.cloneDeep(data));
-        this.clients = arrayData;
+        this.clients = data;
       }
+
+      if (!_.isEmpty(this.scrollEvents)) {
+        this.scrollEvents.target.complete();
+        const totalPages = this.meta.total_pages;
+        if (this.params.page === totalPages) {
+          this.scrollEvents.target.disabled = true;
+        }
+      }
+    });
+
+    this.meta$.subscribe((meta: any) => {
+      this.meta = meta;
     });
   }
 
@@ -84,8 +101,18 @@ export class ClientsCardComponent implements OnInit {
   searchClients(event: any) {
     const { value = '' } = event.detail || {};
     this.selectedClients = [];
+    this.params.page = 1;
     this.params.search = value;
-    this.clientsService.getClients(this.params);
+    this.clientsService.searchClients(this.params);
+  }
+
+  loadMoreClients(event: InfiniteScrollEvents) {
+    const totalPages = this.meta.total_pages;
+    if (this.params.page < totalPages) {
+      this.scrollEvents = event;
+      this.params.page = (this.params.page + 1);
+      this.clientsService.getMoreClients(this.params);
+    }
   }
 
 }

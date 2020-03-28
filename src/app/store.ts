@@ -20,6 +20,10 @@ export const INITIAL_STATE: MoiTutorState = {
   },
   clients: {
     data: [],
+    meta: {
+      total_items: 0,
+      total_pages: 0
+    },
     loading: false,
     sending: false,
   },

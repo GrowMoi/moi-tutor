@@ -10,12 +10,14 @@ import {
   LOAD_CLIENTS_ERROR,
   START_REMOVE_SELECTED_CLIENTS_FROM_LIST,
   REMOVE_SELECTED_CLIENTS_FROM_LIST_SUCCESS,
-  REMOVE_SELECTED_CLIENTS_FROM_LIST_ERROR
+  REMOVE_SELECTED_CLIENTS_FROM_LIST_ERROR,
+  RESET_CLIENTS,
 } from '../actions';
 import { Observable } from 'rxjs';
+import { Promise, reject } from 'q';
 
 export interface ClientParams {
-  page: '1';
+  page: number;
   search?: '';
 }
 
@@ -36,19 +38,43 @@ export class ClientsService {
 
   getClients(params?: ClientParams) {
     this.ngRedux.dispatch({type: LOAD_CLIENTS });
+    return this.loadClients(params).then((data) => {
+      this.ngRedux.dispatch({type: GET_CLIENTS, payload: data});
+      this.ngRedux.dispatch({type: LOAD_CLIENTS_SUCCESS });
+    }, (message) => {
+      this.ngRedux.dispatch({type: LOAD_CLIENTS_ERROR });
+      return reject(message);
+    });
+  }
+
+  loadClients(params?: ClientParams) {
     return this.httpService.http({
       method: 'get',
       url: '/tutor/dashboard/get_clients',
       params
     })
     .then((response) => {
-      const clients = response.data && response.data.data ? response.data.data : response.data;
-      this.ngRedux.dispatch({type: GET_CLIENTS, payload: clients});
-      this.ngRedux.dispatch({type: LOAD_CLIENTS_SUCCESS });
+      const data = response.data || {};
+      return data;
     })
     .catch((error) => {
       const message = this.utilsService.getErrorMessage(error);
-      this.ngRedux.dispatch({type: LOAD_CLIENTS_ERROR });
+      return reject(message);
+    });
+  }
+
+  searchClients(params?: ClientParams) {
+    this.ngRedux.dispatch({type: RESET_CLIENTS });
+    this.getClients(params);
+  }
+
+  getMoreClients(params?: ClientParams) {
+    return this.loadClients(params).then((data: any) => {
+      this.ngRedux.dispatch({type: GET_CLIENTS, payload: data});
+      return data;
+    }, (error: any) => {
+      const message = this.utilsService.getErrorMessage(error);
+      return reject(message);
     });
   }
 

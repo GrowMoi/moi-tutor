@@ -23,6 +23,12 @@
             <img class="moi-clients-list-check" *ngIf="client.selected" src="assets/img/check_blue.png">
           </ion-item>
         </ion-list>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreClients($event)">
+          <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Cargando mas usuarios...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
       </ion-content>
       <ion-item lines="none" class="moi-clients-item-buttons">
         <ion-toolbar>
