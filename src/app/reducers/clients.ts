@@ -10,6 +10,7 @@ import {
   REMOVE_SELECTED_CLIENTS_FROM_LIST_ERROR,
   RESET_CLIENTS,
 } from '../actions';
+import { Student } from './students';
 
 export interface Client {
   id: number;
@@ -88,16 +89,14 @@ export default function clientsReducer(state: ClientsState = {} as any, action: 
     case REMOVE_SELECTED_CLIENTS_FROM_LIST_SUCCESS: {
       const ids = action.payload;
       const clients = state.data;
-      _.forEach(clients, (value, key: number) => {
-        if (ids.includes(value.id)) {
-          delete clients[key];
-        }
+
+      _.remove(clients, (client: Student) => {
+        return ids.includes(client.id);
       });
+
       const newState = {
         ...state,
-        data: {
-          ...clients
-        },
+        data: clients,
         sending: false
       };
       return newState;

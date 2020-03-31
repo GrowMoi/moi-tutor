@@ -7,6 +7,8 @@ import { NgRedux, select } from '@angular-redux/store';
 import { MoiTutorState } from '../store';
 import { LoginState } from '../reducers/login';
 import { Observable } from 'rxjs';
+import { ToastService } from '../services/toast.service';
+import { Student } from '../reducers/students';
 
 @Component({
   selector: 'moi-login',
@@ -25,8 +27,6 @@ export class LoginPage implements OnInit {
     ]
   };
 
-  errorMessage: string;
-
   @select() login$: Observable<LoginState>;
 
   constructor(
@@ -34,7 +34,8 @@ export class LoginPage implements OnInit {
     private authService: AuthenticateService,
     private navCtrl: NavController,
     private ngRedux: NgRedux<MoiTutorState>,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private toastService: ToastService
   ) {
     this.loginForm = this.formBuilder.group({
       login: new FormControl('', Validators.compose([
@@ -56,20 +57,20 @@ export class LoginPage implements OnInit {
   async loginUser(credentials) {
     const loginUser$ = this.authService.loginUser(credentials);
     const loading = await this.loadingController.create({
-      message: 'Please wait...',
+      message: 'Espere un momento...',
       spinner: 'bubbles'
     });
     await loading.present();
     loginUser$.subscribe({
-      next: async (response) => {
-        this.errorMessage = '';
+      next: async (response: Student) => {
         this.ngRedux.dispatch({type: LOGIN});
         this.navCtrl.navigateForward('/home');
         await loading.dismiss();
+        this.toastService.success(`Bienvenido ${response.name || response.username}`);
       },
       error: async (errMessage) => {
-        this.errorMessage = errMessage;
         await loading.dismiss();
+        this.toastService.danger(errMessage);
       },
     });
   }

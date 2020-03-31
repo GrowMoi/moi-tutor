@@ -3,9 +3,9 @@ import { ClientsService, ClientParams } from 'src/app/services/clients.service';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { ClientsState, Client, ClientMeta } from 'src/app/reducers/clients';
-import { ToastController } from '@ionic/angular';
 import { IonInfiniteScroll } from '@ionic/angular';
 import _ from 'lodash';
+import { ToastService } from 'src/app/services/toast.service';
 
 interface InfiniteScrollEvents {
   target: any;
@@ -33,7 +33,7 @@ export class ClientsCardComponent implements OnInit {
 
   constructor(
     private clientsService: ClientsService,
-    private toastController: ToastController
+    private toastService: ToastService
   ) { }
 
   ngOnInit() {
@@ -78,22 +78,10 @@ export class ClientsCardComponent implements OnInit {
       .subscribe({
         next: async (message: string) => {
           this.selectedClients = [];
-          const toast = await this.toastController.create({
-            message,
-            color: 'success',
-            duration: 3000,
-            position: 'top'
-          });
-          toast.present();
+          this.toastService.success(message);
         },
         error:  async (message: string) => {
-          const toast = await this.toastController.create({
-            message,
-            color: 'danger',
-            duration: 3000,
-            position: 'top'
-          });
-          toast.present();
+          this.toastService.danger(message);
         }
       });
   }

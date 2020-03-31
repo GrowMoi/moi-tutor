@@ -1,7 +1,7 @@
 import { MoiAction } from '../store';
 import { GET_STUDENTS, LOAD_STUDENTS, LOAD_STUDENTS_SUCCESS, LOAD_STUDENTS_ERROR } from '../actions';
 
-interface Student {
+export interface Student {
   id: number;
   email: string;
   name: string;
