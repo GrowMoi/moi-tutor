@@ -8,40 +8,23 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col size-md="4" size-xs="12">
-        <ion-grid>
-          <ion-row>
-            <ion-col size-xs="12" padding>
-              <moi-clients-card></moi-clients-card>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
 
-      </ion-col>
-      <ion-col size-md="8" size-xs="12">
-
-        <ion-grid>
-          <ion-row>
-            <ion-col size-md="6" size-xs="12" padding>
-              <moi-students-card></moi-students-card>
-            </ion-col>
-            <ion-col size-md="6" size-xs="12" padding>
-              <moi-recommendations-card></moi-recommendations-card>
-            </ion-col>
-            <ion-col size-md="6" size-xs="12" padding>
-              <moi-messages-card></moi-messages-card>
-            </ion-col>
-            <ion-col size-md="6" size-xs="12" padding>
-              <moi-quizzes-card></moi-quizzes-card>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-
-
-      </ion-col>
-    </ion-row>
-
-  </ion-grid>
+  <div class="moi-dashboard-tabs-container">
+    <div>
+      <ion-toolbar>
+        <ion-segment color="primary" [value]="cards[0].key" (ionChange)="segmentChanged($event)">
+          <ion-segment-button *ngFor="let card of cards" [value]="card.key">
+            <ion-icon [name]="card.icon"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+    </div>
+    <div class="moi-dashboard-tabs-container" [ngSwitch]="selectedTab">
+      <moi-clients-card class="moi-dashboard-card" *ngSwitchCase="cards[0].key"></moi-clients-card>
+      <moi-students-card *ngSwitchCase="cards[1].key"></moi-students-card>
+      <moi-messages-card *ngSwitchCase="cards[2].key"></moi-messages-card>
+      <moi-quizzes-card *ngSwitchCase="cards[3].key"></moi-quizzes-card>
+      <moi-recommendations-card *ngSwitchCase="cards[4].key"></moi-recommendations-card>
+    </div>
+  </div>
 </ion-content>
