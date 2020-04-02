@@ -9,6 +9,7 @@ export class CardComponent implements OnInit {
 
   @Input() title: string;
   @Input() theme: string;
+  @Input() height: string;
 
   themes = {
     'light-blue': {
