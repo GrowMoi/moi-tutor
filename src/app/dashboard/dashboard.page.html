@@ -12,8 +12,8 @@
   <div class="moi-dashboard-tabs-container">
     <div>
       <ion-toolbar>
-        <ion-segment color="primary" [value]="cards[0].key" (ionChange)="segmentChanged($event)">
-          <ion-segment-button *ngFor="let card of cards" [value]="card.key">
+        <ion-segment scrollable color="primary" [value]="cards[0].key" (ionChange)="segmentChanged($event)">
+          <ion-segment-button class="moi-dashboard-tab" *ngFor="let card of cards" [value]="card.key">
             <ion-icon [name]="card.icon"></ion-icon>
           </ion-segment-button>
         </ion-segment>
