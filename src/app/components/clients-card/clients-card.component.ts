@@ -100,6 +100,8 @@ export class ClientsCardComponent implements OnInit {
       this.scrollEvents = event;
       this.params.page = (this.params.page + 1);
       this.clientsService.getMoreClients(this.params);
+    } else {
+      event.target.disabled = true;
     }
   }
 

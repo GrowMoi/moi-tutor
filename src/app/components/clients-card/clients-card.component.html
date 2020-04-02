@@ -1,11 +1,13 @@
-<moi-card title="Usuarios" theme="light-blue">
-  <div class="moi-clients-card-container">
-    <ion-toolbar>
+<moi-card title="Usuarios" theme="light-blue" height="95%">
+  <div class="moi-clients-card-container" style="position: relative;">
+    <ion-toolbar class="moi-clients-card-search-toolbar">
       <ion-searchbar debounce="500" (ionChange)="searchClients($event)">
       </ion-searchbar>
     </ion-toolbar>
     <ion-spinner class="moi-clients-loading" name="lines" *ngIf="loading$ | async; else mainBlock"></ion-spinner>
     <ng-template #mainBlock>
+      <div *ngIf="!clients">- No se encontraron elementos -</div>
+
       <ion-content class="moi-clients-list-content">
         <ion-list>
           <ion-item *ngFor="let client of clients"
@@ -30,18 +32,17 @@
           </ion-infinite-scroll-content>
         </ion-infinite-scroll>
       </ion-content>
-      <ion-item lines="none" class="moi-clients-item-buttons">
-        <ion-toolbar>
-          <ion-buttons slot="end">
-            <ion-button [disabled]="(selectedClients.length === 0) || (sending$ | async)"
-              fill="outline"
-              color="primary"
-              (click)="sendSelectedClients()">
-              Enviar Solicitud
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-item>
+
+      <ion-toolbar class="moi-clients-actions-container">
+        <ion-buttons slot="end">
+          <ion-button [disabled]="(selectedClients.length === 0) || (sending$ | async)"
+            fill="outline"
+            color="primary"
+            (click)="sendSelectedClients()">
+            Enviar Solicitud
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
     </ng-template>
   </div>
 </moi-card>

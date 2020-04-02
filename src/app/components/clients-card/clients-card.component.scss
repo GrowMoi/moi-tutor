@@ -1,5 +1,12 @@
 :host {
   --item-hover-color: #eeeeee;
+  height: 100%;
+}
+
+.moi-clients-card-search-toolbar {
+  position: absolute;
+  top: 0;
+  height: 4rem;
 }
 
 .moi-clients-card-container {
@@ -7,11 +14,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 10rem;
+  height: 100%;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 .moi-clients-list-content {
-  min-height: 30rem;
+  min-height: 10rem;
 }
 
 .moi-clients-list-item {
@@ -34,4 +43,9 @@
 
 .moi-clients-loading {
   min-height: 10rem;
+}
+
+.moi-clients-actions-container {
+  position: absolute;
+  bottom: 0;
 }
