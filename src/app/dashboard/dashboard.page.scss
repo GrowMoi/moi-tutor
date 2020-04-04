@@ -2,12 +2,22 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow-y: scroll;
+  padding-bottom: 4rem;
+  position: relative;
 }
 
-.moi-dashboard-tabs-container {
+.moi-dashboard-tabs-cards-container {
   height: 100%;
+  overflow: scroll;
 }
 
 .moi-dashboard-tab {
   min-width: 10%;
+}
+
+.moi-dashboard-tabs-bar-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
