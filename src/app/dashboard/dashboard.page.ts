@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'moi-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
 })
-export class DashboardPage implements OnInit {
+export class DashboardPage {
 
   cards = [
     {
@@ -34,10 +34,7 @@ export class DashboardPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
-  segmentChanged(event) {
+  segmentChanged(event: any) {
     const value = event.detail.value;
     this.selectedTab = value;
   }

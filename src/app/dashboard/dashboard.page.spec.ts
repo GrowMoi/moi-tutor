@@ -69,4 +69,87 @@ describe('DashboardPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Cards should have 4 items', () => {
+    const cards = component.cards;
+
+    expect(cards).toEqual([
+      {
+        key: 'clients',
+        icon: 'people-outline',
+      },
+      {
+        key: 'students',
+        icon: 'body-outline'
+      },
+      {
+        key: 'messages',
+        icon: 'chatbox-outline'
+      },
+      {
+        key: 'quizzes',
+        icon: 'clipboard-outline'
+      },
+      {
+        key: 'recommendations',
+        icon: 'help-buoy-outline'
+      },
+    ]);
+  });
+
+  it('Selected tab should change when select clients', () => {
+    const cards = component.cards;
+    const event = {
+      detail: {
+        value: cards[0].key
+      }
+    };
+    component.segmentChanged(event);
+    expect(component.selectedTab).toBe(cards[0].key);
+  });
+
+  it('Selected tab should change when select students', () => {
+    const cards = component.cards;
+    const event = {
+      detail: {
+        value: cards[1].key
+      }
+    };
+    component.segmentChanged(event);
+    expect(component.selectedTab).toBe(cards[1].key);
+  });
+
+
+  it('Selected tab should change when select messages', () => {
+    const cards = component.cards;
+    const event = {
+      detail: {
+        value: cards[2].key
+      }
+    };
+    component.segmentChanged(event);
+    expect(component.selectedTab).toBe(cards[2].key);
+  });
+
+  it('Selected tab should change when select quizzes', () => {
+    const cards = component.cards;
+    const event = {
+      detail: {
+        value: cards[3].key
+      }
+    };
+    component.segmentChanged(event);
+    expect(component.selectedTab).toBe(cards[3].key);
+  });
+
+  it('Selected tab should change when select recommendations', () => {
+    const cards = component.cards;
+    const event = {
+      detail: {
+        value: cards[4].key
+      }
+    };
+    component.segmentChanged(event);
+    expect(component.selectedTab).toBe(cards[4].key);
+  });
 });
