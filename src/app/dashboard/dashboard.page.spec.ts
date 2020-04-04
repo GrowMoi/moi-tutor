@@ -70,7 +70,7 @@ describe('DashboardPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Cards should have 4 items', () => {
+  it('cards should have 4 items', () => {
     const cards = component.cards;
 
     expect(cards).toEqual([
@@ -97,7 +97,7 @@ describe('DashboardPage', () => {
     ]);
   });
 
-  it('Selected tab should change when select clients', () => {
+  it('selected tab should change when select clients', () => {
     const cards = component.cards;
     const event = {
       detail: {
@@ -108,7 +108,7 @@ describe('DashboardPage', () => {
     expect(component.selectedTab).toBe(cards[0].key);
   });
 
-  it('Selected tab should change when select students', () => {
+  it('selected tab should change when select students', () => {
     const cards = component.cards;
     const event = {
       detail: {
@@ -120,7 +120,7 @@ describe('DashboardPage', () => {
   });
 
 
-  it('Selected tab should change when select messages', () => {
+  it('selected tab should change when select messages', () => {
     const cards = component.cards;
     const event = {
       detail: {
@@ -131,7 +131,7 @@ describe('DashboardPage', () => {
     expect(component.selectedTab).toBe(cards[2].key);
   });
 
-  it('Selected tab should change when select quizzes', () => {
+  it('selected tab should change when select quizzes', () => {
     const cards = component.cards;
     const event = {
       detail: {
@@ -142,7 +142,7 @@ describe('DashboardPage', () => {
     expect(component.selectedTab).toBe(cards[3].key);
   });
 
-  it('Selected tab should change when select recommendations', () => {
+  it('selected tab should change when select recommendations', () => {
     const cards = component.cards;
     const event = {
       detail: {

@@ -1,9 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { HomePage } from './home.page';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -27,5 +24,21 @@ describe('HomePage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have a list of pages', () => {
+    const pages = component.pages;
+    expect(pages).toEqual([
+      {
+        title: 'MOI',
+        url: '/tutor/dashboard',
+        img: '../../assets/img/moi_navbar_brain.png'
+      },
+      {
+        title: 'Usuario',
+        url: '/tutor/client',
+        img: '../../assets/img/moi_navbar_client.png'
+      },
+    ]);
   });
 });
