@@ -18,6 +18,7 @@ export interface Client {
   name: string;
   role: string;
   username: string;
+  selected?: boolean;
   image: {
     url: string
   };

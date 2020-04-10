@@ -57,7 +57,7 @@ export class ClientsCardComponent implements OnInit {
     });
   }
 
-  selectClient(client: any) {
+  selectClient(client: Client) {
     const itemIndex = this.selectedClients.indexOf(client);
     const itemExists = itemIndex >= 0;
     if (itemExists) {
@@ -77,7 +77,7 @@ export class ClientsCardComponent implements OnInit {
     this.clientsService.sendRequestToClients(apiParams)
       .subscribe({
         next: async (message: string) => {
-          this.selectedClients = [];
+          this.cleanSelected();
           this.toastService.success(message);
         },
         error:  async (message: string) => {
@@ -88,7 +88,7 @@ export class ClientsCardComponent implements OnInit {
 
   searchClients(event: any) {
     const { value = '' } = event.detail || {};
-    this.selectedClients = [];
+    this.cleanSelected();
     this.params.page = 1;
     this.params.search = value;
     this.clientsService.searchClients(this.params);
@@ -103,6 +103,11 @@ export class ClientsCardComponent implements OnInit {
     } else {
       event.target.disabled = true;
     }
+  }
+
+  cleanSelected() {
+    this.selectedClients = [];
+    this.clients.forEach(element => element.selected = false);
   }
 
 }
