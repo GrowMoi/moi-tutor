@@ -185,10 +185,6 @@ describe('ClientsCardComponent', () => {
 
     component.sendSelectedClients();
 
-    const apiParams = {
-      user_ids: [1, 2, 3]
-    };
-
     expect(component.selectedClients).toEqual([]);
     expect(component.clients[0].selected).toEqual(false);
     expect(component.clients[1].selected).toEqual(false);

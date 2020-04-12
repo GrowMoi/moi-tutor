@@ -14,8 +14,11 @@
               <h3>{{student.email}}</h3>
               <p>{{student.username}}</p>
             </ion-label>
-            <ion-button *ngIf="student.status === 'accepted'" color="secondary">
+            <!-- <ion-button *ngIf="student.status === 'accepted'" color="secondary">
               <ion-icon slot="icon-only" name="bar-chart-outline"></ion-icon>
+            </ion-button> -->
+            <ion-button *ngIf="!student.status" fill="clear" (click)="confirmCancelRequest(student)">
+              <ion-icon class="moi-cancel-request-icon" color="danger" name="close-circle-outline"></ion-icon>
             </ion-button>
           </ion-item>
         </ion-list>
