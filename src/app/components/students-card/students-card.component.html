@@ -5,7 +5,7 @@
       <ion-searchbar></ion-searchbar>
       <ion-content class="moi-students-list-content">
         <ion-list>
-          <ion-item *ngFor="let student of students$ | async | format">
+          <ion-item *ngFor="let student of students$ | async">
             <ion-avatar slot="start">
               <img src="assets/img/client_avatar_inactive.png">
             </ion-avatar>
@@ -17,7 +17,9 @@
             <!-- <ion-button *ngIf="student.status === 'accepted'" color="secondary">
               <ion-icon slot="icon-only" name="bar-chart-outline"></ion-icon>
             </ion-button> -->
-            <ion-button *ngIf="!student.status" fill="clear" (click)="confirmCancelRequest(student)">
+            <ion-button *ngIf="!student.status"
+              fill="clear"
+              (click)="confirmCancelRequest(student)">
               <ion-icon class="moi-cancel-request-icon" color="danger" name="close-circle-outline"></ion-icon>
             </ion-button>
           </ion-item>
@@ -26,11 +28,13 @@
       <ion-toolbar>
         <ion-buttons slot="primary">
           <ion-button color="secondary"
-            fill="outline">
+            fill="outline"
+            [disabled]="sending$ | async">
             Exportar Seleccionados
           </ion-button>
           <ion-button color="primary"
-            fill="outline">
+            fill="outline"
+            [disabled]="sending$ | async">
             Exportar Todos
           </ion-button>
         </ion-buttons>

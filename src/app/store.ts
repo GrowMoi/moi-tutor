@@ -11,7 +11,7 @@ export interface MoiTutorState {
 
 export interface MoiAction {
   type: string;
-  payload: any;
+  payload?: any;
 }
 
 export const INITIAL_STATE: MoiTutorState = {
@@ -29,6 +29,7 @@ export const INITIAL_STATE: MoiTutorState = {
   },
   students: {
     data: [],
+    sending: false,
     loading: false
   }
 };

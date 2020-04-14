@@ -3,7 +3,14 @@ import { HttpService } from '../services/http.service';
 import { UtilsService } from './utils.service';
 import { NgRedux } from '@angular-redux/store';
 import { MoiTutorState } from '../store';
-import { GET_STUDENTS, LOAD_STUDENTS, LOAD_STUDENTS_SUCCESS, LOAD_CLIENTS_ERROR, LOAD_STUDENTS_ERROR } from '../actions';
+import {
+  GET_STUDENTS,
+  LOAD_STUDENTS,
+  LOAD_STUDENTS_SUCCESS,
+  LOAD_STUDENTS_ERROR,
+  START_CANCEL_TUTOR_REQUEST,
+  CANCEL_TUTOR_REQUEST_SUCCESS,
+  CANCEL_TUTOR_REQUEST_ERROR } from '../actions';
 import { ToastService } from './toast.service';
 
 export interface StudentCancelRequestData {
@@ -39,6 +46,7 @@ export class StudentsService {
   }
 
   cancelRequest(params: StudentCancelRequestData) {
+    this.ngRedux.dispatch({ type: START_CANCEL_TUTOR_REQUEST });
     return this.httpService.http({
       method: 'delete',
       url: `/tutor/user_tutors/${params.id}`,
@@ -46,12 +54,14 @@ export class StudentsService {
         id: params.id
       }
     })
-      .then((response) => {
+      .then((response: any) => {
         const message = response.data && response.data.message ? response.data.message : response.data;
+        this.ngRedux.dispatch({ type: CANCEL_TUTOR_REQUEST_SUCCESS, payload: params });
         this.toastService.success(message);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         const message = this.utilsService.getErrorMessage(error);
+        this.ngRedux.dispatch({ type: CANCEL_TUTOR_REQUEST_ERROR });
         this.toastService.danger(message);
       });
   }

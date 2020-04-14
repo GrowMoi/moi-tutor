@@ -11,6 +11,7 @@ import { MockHttpService } from 'src/__mocks__/http.service.mock';
 import { MockToastService } from 'src/__mocks__/toast.service.mock';
 import { ToastService } from './toast.service';
 import { MoiTutorState } from '../store';
+import { START_CANCEL_TUTOR_REQUEST, CANCEL_TUTOR_REQUEST_SUCCESS } from '../actions';
 
 describe('StudentsService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -143,38 +144,36 @@ describe('StudentsService', () => {
     expect(spy.calls.first().args[0]).toBe('a error message');
   }));
 
+  it('should show message on Cancel Request error', inject([
+    HttpService,
+    NgRedux,
+  ], async (
+    httpService: HttpService,
+    ngRedux: NgRedux<MoiTutorState>
+  ) => {
+    const spy = spyOn(ngRedux, 'dispatch');
+    spyOn(httpService, 'http').and.callFake((apiOptions) => {
+      return new Promise((resolve: any) => {
+        const response = {
+          data: {
+            message: 'a success message'
+          }
+        };
+        resolve(response);
+      });
+    });
 
-  // it('should show message on Cancel Request error', inject([
-  //   HttpService,
-  //   NgRedux,
-  // ], async (
-  //   httpService: HttpService,
-  //   ngRedux: NgRedux<MoiTutorState>
-  // ) => {
+    const service: StudentsService = TestBed.get(StudentsService);
 
-  //   spyOn(httpService, 'http').and.callFake((apiOptions) => {
-  //     return new Promise((resolve: any) => {
-  //       const response = {
-  //         data: {
-  //           message: 'a success message'
-  //         }
-  //       }
-  //       resolve(response);
-  //     });
-  //   });
+    const params = {
+      id: 1342
+    };
 
-  //   const service: StudentsService = TestBed.get(StudentsService);
+    await service.cancelRequest(params);
 
-  //   const params = {
-  //     id: 1342
-  //   };
-
-  //   await service.cancelRequest(params);
-
-  //   const spy = spyOn(ngRedux, 'dispatch');
-  //   const calls = spy.calls;
-  //   expect(calls[0].args[0]).toBe({});
-  //   expect(calls[1].args[0]).toBe({});
-  // }));
+    const calls = spy.calls.all();
+    expect(calls[0].args[0]).toEqual({ type: START_CANCEL_TUTOR_REQUEST });
+    expect(calls[1].args[0]).toEqual({ type: CANCEL_TUTOR_REQUEST_SUCCESS, payload: params });
+  }));
 
 });

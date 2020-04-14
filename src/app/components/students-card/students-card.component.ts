@@ -4,6 +4,7 @@ import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { StudentsState, Student } from 'src/app/reducers/students';
 import { AlertController } from '@ionic/angular';
+import _ from 'lodash';
 
 @Component({
   selector: 'moi-students-card',
@@ -14,6 +15,7 @@ export class StudentsCardComponent implements OnInit {
 
   @select(['students', 'data']) students$: Observable<StudentsState>;
   @select(['students', 'loading']) loading$: Observable<StudentsState>;
+  @select(['students', 'sending']) sending$: Observable<boolean>;
 
   constructor(
     private studentsService: StudentsService,
