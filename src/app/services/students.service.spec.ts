@@ -11,7 +11,7 @@ import { MockHttpService } from 'src/__mocks__/http.service.mock';
 import { MockToastService } from 'src/__mocks__/toast.service.mock';
 import { ToastService } from './toast.service';
 import { MoiTutorState } from '../store';
-import { START_CANCEL_TUTOR_REQUEST, CANCEL_TUTOR_REQUEST_SUCCESS } from '../actions';
+import { START_CANCEL_TUTOR_REQUEST, CANCEL_TUTOR_REQUEST_SUCCESS, START_EXPORT_EXCEL, EXPORT_EXCEL_SUCCESS } from '../actions';
 
 describe('StudentsService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -174,6 +174,42 @@ describe('StudentsService', () => {
     const calls = spy.calls.all();
     expect(calls[0].args[0]).toEqual({ type: START_CANCEL_TUTOR_REQUEST });
     expect(calls[1].args[0]).toEqual({ type: CANCEL_TUTOR_REQUEST_SUCCESS, payload: params });
+  }));
+
+  it('should call to the "Export All Students to Excel" endpoint', inject([
+    HttpService,
+    NgRedux
+  ], async (
+    httpService: HttpService,
+    ngRedux: NgRedux<MoiTutorState>
+  ) => {
+
+    const service: StudentsService = TestBed.get(StudentsService);
+    let options = null;
+    spyOn(httpService, 'http').and.callFake((apiOptions) => {
+      options = apiOptions;
+      return new Promise((resolve: any) => {
+        const response = {
+          data: {
+            message: 'success'
+          }
+        };
+        resolve(response);
+      });
+    });
+    const spy = spyOn(ngRedux, 'dispatch');
+    service.exportToExcel().subscribe((resp) => {
+
+      const calls = spy.calls.all();
+
+      expect(options).toEqual({
+        method: 'get',
+        url: '/tutor/dashboard/download_tutor_analytics.xls',
+      });
+      expect(calls[0].args[0]).toEqual({ type: START_EXPORT_EXCEL });
+      expect(calls[1].args[0]).toEqual({ type: EXPORT_EXCEL_SUCCESS });
+
+    });
   }));
 
 });

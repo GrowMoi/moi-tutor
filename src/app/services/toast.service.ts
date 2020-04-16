@@ -31,4 +31,15 @@ export class ToastService {
     });
     toast.present();
   }
+
+  async info(message: string, config: any = {}) {
+    const toast = await this.toastController.create({
+      message,
+      color: 'secondary',
+      duration: 3000,
+      position: 'top',
+      ...config
+    });
+    toast.present();
+  }
 }

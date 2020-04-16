@@ -26,7 +26,6 @@ export class StudentsCardComponent implements OnInit {
     this.studentsService.getStudents();
   }
 
-
   async confirmCancelRequest(student: Student) {
     const alert = await this.alertController.create({
       header: 'Advertencia',
@@ -52,6 +51,24 @@ export class StudentsCardComponent implements OnInit {
       id: student.id
     };
     this.studentsService.cancelRequest(params);
+  }
+
+  exportToExcel() {
+    this.studentsService.exportToExcel().subscribe((excelTextDocument: string) => {
+      if (excelTextDocument) {
+        const fileName = 'reporte_' + Date.now() + '.xls';
+        this.downloadReport(excelTextDocument, fileName);
+      }
+    });
+  }
+
+  downloadReport(excelTextDocument: string, fileName: string) {
+    const a = window.document.createElement('a');
+    a.href = window.URL.createObjectURL(new Blob([excelTextDocument], {type: 'application/xls'}));
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 
 }

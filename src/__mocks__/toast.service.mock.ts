@@ -10,4 +10,10 @@ export class MockToastService {
       resolve();
     });
   }
+
+  info() {
+    return new Promise((resolve) => {
+      resolve();
+    });
+  }
 }

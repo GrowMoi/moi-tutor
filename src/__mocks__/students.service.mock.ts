@@ -3,6 +3,9 @@ export class MockStudentsService {
   }
 
   cancelRequest() {
+  }
+
+  exportToExcel() {
 
   }
 }

@@ -11,6 +11,7 @@ import { StudentsService } from 'src/app/services/students.service';
 import { MockStudentsService } from '../../../__mocks__/students.service.mock';
 import { MockAlertController } from 'src/__mocks__/alert.controller.mock';
 import { Student } from 'src/app/reducers/students';
+import { Observable } from 'rxjs';
 
 describe('StudentsCardComponent', () => {
   let component: StudentsCardComponent;
@@ -133,4 +134,37 @@ describe('StudentsCardComponent', () => {
     });
 
   }));
+
+  it('should call to the handler when select Export All', inject([StudentsService],
+    async (studentsService: StudentsService) => {
+    const spy = spyOn(studentsService, 'exportToExcel').and.callFake(() => {
+      return new Observable();
+    });
+    component.exportToExcel();
+    expect(spy).toHaveBeenCalled();
+  }));
+
+  it('should create and download an item', inject([StudentsService],
+    async (studentsService: StudentsService) => {
+    const spyDownloadFn = spyOn(component, 'downloadReport');
+    const expectCb = () => {
+      expect(spyDownloadFn).toHaveBeenCalled();
+    };
+    const spy = spyOn(studentsService, 'exportToExcel').and.callFake(() => {
+      return new Observable((subscriber) => {
+        subscriber.next('xml text');
+        subscriber.complete();
+        expectCb();
+      });
+    });
+    component.exportToExcel();
+    expect(spy).toHaveBeenCalled();
+  }));
+
+    // it('should call to the handler when select Export Selected', inject([StudentsService],
+  //   async (studentsService: StudentsService) => {
+  //   const spy = spyOn(studentsService, 'exportToExcel');
+  //   const params = spy.calls.first().args[0];
+  //   expect(params).toEqual([1, 2, 3]); // ids
+  // }));
 });

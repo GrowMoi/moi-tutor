@@ -10,8 +10,12 @@ import {
   LOAD_STUDENTS_ERROR,
   START_CANCEL_TUTOR_REQUEST,
   CANCEL_TUTOR_REQUEST_SUCCESS,
-  CANCEL_TUTOR_REQUEST_ERROR } from '../actions';
+  CANCEL_TUTOR_REQUEST_ERROR,
+  START_EXPORT_EXCEL,
+  EXPORT_EXCEL_SUCCESS,
+  EXPORT_EXCEL_ERROR} from '../actions';
 import { ToastService } from './toast.service';
+import { Observable } from 'rxjs';
 
 export interface StudentCancelRequestData {
   id: number;
@@ -64,5 +68,27 @@ export class StudentsService {
         this.ngRedux.dispatch({ type: CANCEL_TUTOR_REQUEST_ERROR });
         this.toastService.danger(message);
       });
+  }
+
+  exportToExcel(studentIds?: Array<number>) {
+    this.ngRedux.dispatch({ type: START_EXPORT_EXCEL });
+    this.toastService.info('Generando documento...');
+    return new Observable((subscriber) => {
+      this.httpService.http({
+        method: 'get',
+        url: '/tutor/dashboard/download_tutor_analytics.xls',
+      })
+        .then((response: any) => {
+          this.ngRedux.dispatch({ type: EXPORT_EXCEL_SUCCESS });
+          subscriber.next(response.data);
+          subscriber.complete();
+        })
+        .catch((error: any) => {
+          const message = this.utilsService.getErrorMessage(error);
+          this.toastService.danger(message);
+          this.ngRedux.dispatch({ type: EXPORT_EXCEL_ERROR });
+          subscriber.error(message);
+        });
+    });
   }
 }
