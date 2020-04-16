@@ -14,8 +14,8 @@ export class HomePage {
       img: '../../assets/img/moi_navbar_brain.png'
     },
     {
-      title: 'Usuario',
-      url: '/tutor/client',
+      title: 'Perfil',
+      url: '/tutor/profile',
       img: '../../assets/img/moi_navbar_client.png'
     },
   ];

@@ -67,6 +67,7 @@ export class LoginPage implements OnInit {
         this.navCtrl.navigateForward('/home');
         await loading.dismiss();
         this.toastService.success(`Bienvenido ${response.name || response.username}`);
+        this.loginForm.reset();
       },
       error: async (errMessage) => {
         await loading.dismiss();

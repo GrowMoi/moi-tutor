@@ -16,8 +16,8 @@ const routes: Routes = [
         loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
       },
       {
-        path: 'client',
-        loadChildren: () => import('./client/client.module').then( m => m.ClientPageModule)
+        path: 'profile',
+        loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
       },
     ]
   },

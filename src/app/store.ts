@@ -2,6 +2,7 @@ import { Reducer, combineReducers } from 'redux';
 import loginReducer, { LoginState } from './reducers/login';
 import clientsReducer, { ClientsState } from './reducers/clients';
 import studentsReducer, { StudentsState } from './reducers/students';
+import { USER_LOGOUT } from './actions/user';
 
 export interface MoiTutorState {
   login: LoginState;
@@ -34,8 +35,15 @@ export const INITIAL_STATE: MoiTutorState = {
   }
 };
 
-export const rootReducer: Reducer<MoiTutorState> = combineReducers({
+const appReducer = combineReducers({
   login: loginReducer,
   clients: clientsReducer,
   students: studentsReducer,
 });
+
+export const rootReducer: Reducer<MoiTutorState> = (state, action) => {
+  if (action.type === USER_LOGOUT) {
+    state = undefined;
+  }
+  return appReducer(state, action);
+};
