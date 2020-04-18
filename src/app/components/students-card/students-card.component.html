@@ -5,7 +5,8 @@
       <ion-searchbar></ion-searchbar>
       <ion-content class="moi-students-list-content">
         <ion-list>
-          <ion-item *ngFor="let student of students$ | async">
+          <ion-item *ngFor="let student of students$ | async"
+          [ngClass]="{'moi-item-pending-request': !student.status}">
             <ion-avatar slot="start">
               <img src="assets/img/client_avatar_inactive.png">
             </ion-avatar>
@@ -18,9 +19,10 @@
               <ion-icon slot="icon-only" name="bar-chart-outline"></ion-icon>
             </ion-button> -->
             <ion-button *ngIf="!student.status"
-              fill="clear"
+              fill="outline"
+              color="danger"
               (click)="confirmCancelRequest(student)">
-              <ion-icon class="moi-cancel-request-icon" color="danger" name="close-circle-outline"></ion-icon>
+              Cancelar Solicitud
             </ion-button>
           </ion-item>
         </ion-list>
