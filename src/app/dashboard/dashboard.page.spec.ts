@@ -17,6 +17,7 @@ import { MockClientsService } from 'src/__mocks__/clients.service.mock';
 import { MockNgRedux } from 'src/__mocks__/ng-redux.mock';
 import { StudentsService } from '../services/students.service';
 import { MockStudentsService } from 'src/__mocks__/students.service.mock';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 describe('DashboardPage', () => {
   let component: DashboardPage;
@@ -37,7 +38,9 @@ describe('DashboardPage', () => {
       imports: [
         NgReduxModule,
         IonicStorageModule.forRoot(),
-        IonicModule.forRoot()
+        IonicModule.forRoot(),
+        ReactiveFormsModule,
+        FormsModule,
       ],
       providers: [
         {

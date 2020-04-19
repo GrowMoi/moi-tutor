@@ -14,7 +14,7 @@ export class MessagesCardComponent implements OnInit {
 
   @select(['students', 'data']) students$: Observable<StudentsState>;
   @select(['messages', 'sending']) sending$: Observable<boolean>;
-  @ViewChild('imageFile', {static: false}) imageFile: ElementRef;
+  @ViewChild('imageFile', {static: false}) imageFile: any;
 
   messagesForm: FormGroup;
   fileToUpload: File = null;

@@ -15,7 +15,7 @@ describe('MessagesService', () => {
     providers: [{
       provide: NgRedux,
       useFactory: MockNgRedux.getInstance
-    },{
+    }, {
       provide: HttpService,
       useClass: MockHttpService
     }, {

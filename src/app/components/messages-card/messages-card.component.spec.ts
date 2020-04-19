@@ -28,6 +28,7 @@ describe('MessagesCardComponent', () => {
         IonicModule.forRoot(),
         NgReduxModule,
         IonicStorageModule.forRoot(),
+        ReactiveFormsModule,
       ]
     }).compileComponents();
 
