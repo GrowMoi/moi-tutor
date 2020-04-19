@@ -1,25 +1,23 @@
 <moi-card title="Enviar Recomendaciones" theme="yellow">
-  <form action="">
+  <form [formGroup]="recommendationsForm" (ngSubmit)="sendRecommendation(recommendationsForm.value)">
     <ion-item>
       <ion-label>Enviar a</ion-label>
-      <ion-select value="03">
-        <ion-select-option value="01">Juanito</ion-select-option>
-        <ion-select-option value="02">Ana</ion-select-option>
-        <ion-select-option value="03">Pedro</ion-select-option>
-        <ion-select-option value="04">María</ion-select-option>
+      <ion-select formControlName="student" [disabled]="recommendationsForm.value.sendToAll === true">
+        <ion-select-option [value]="student.id" *ngFor="let student of students$ | async">
+          {{student.username}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>Enviar a todos</ion-label>
-      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
+      <ion-checkbox formControlName="sendToAll" color="primary" slot="start" checked="false"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>Recompensa</ion-label>
-      <ion-select value="03">
-        <ion-select-option value="01">Recompensa 1</ion-select-option>
-        <ion-select-option value="02">Recompensa 2</ion-select-option>
-        <ion-select-option value="03">Recompensa 3</ion-select-option>
-        <ion-select-option value="04">Recompensa 4</ion-select-option>
+      <ion-select formControlName="achievement">
+        <ion-select-option [value]="achievement.id" *ngFor="let achievement of achievements$ | async">
+          {{achievement.name}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
