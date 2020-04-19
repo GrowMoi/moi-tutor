@@ -6,13 +6,6 @@ import {
 } from '../actions';
 import _ from 'lodash';
 
-export interface Student {
-  id: number;
-  email: string;
-  name: string;
-  status: string;
-  username: string;
-}
 export interface MessagesState {
   sending: boolean;
 }

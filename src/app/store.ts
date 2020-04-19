@@ -4,12 +4,14 @@ import clientsReducer, { ClientsState } from './reducers/clients';
 import studentsReducer, { StudentsState } from './reducers/students';
 import { USER_LOGOUT } from './actions/user';
 import messagesReducer, { MessagesState } from './reducers/messages';
+import recommendationsReducer, { RecommendationsState } from './reducers/recommendations';
 
 export interface MoiTutorState {
   login: LoginState;
   clients: ClientsState;
   students: StudentsState;
   messages: MessagesState;
+  recommendations: RecommendationsState;
 }
 
 export interface MoiAction {
@@ -37,6 +39,11 @@ export const INITIAL_STATE: MoiTutorState = {
   },
   messages: {
     sending: false,
+  },
+  recommendations: {
+    achievements: [],
+    sending: false,
+    loading: false
   }
 };
 
@@ -45,6 +52,7 @@ const appReducer = combineReducers({
   clients: clientsReducer,
   students: studentsReducer,
   messages: messagesReducer,
+  recommendations: recommendationsReducer,
 });
 
 export const rootReducer: Reducer<MoiTutorState> = (state, action) => {
