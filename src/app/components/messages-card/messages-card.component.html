@@ -1,39 +1,63 @@
 <moi-card title="Enviar mensaje" theme="pink">
-  <form action="">
+  <form [formGroup]="messagesForm" (ngSubmit)="sendMessage(messagesForm.value)">
     <ion-item>
       <ion-label>Enviar a</ion-label>
-      <ion-select value="03">
-        <ion-select-option value="01">Juanito</ion-select-option>
-        <ion-select-option value="02">Ana</ion-select-option>
-        <ion-select-option value="03">Pedro</ion-select-option>
-        <ion-select-option value="04">María</ion-select-option>
+      <ion-select formControlName="student" [disabled]="messagesForm.value.send_to_all === true">
+        <ion-select-option [value]="student.id" *ngFor="let student of students$ | async">
+          {{student.username}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>Enviar a todos</ion-label>
-      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
+      <ion-checkbox formControlName="send_to_all" color="primary" slot="start" checked="false"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Título</ion-label>
-      <ion-input placeholder="Título del mensaje"></ion-input>
+      <ion-input formControlName="title" placeholder="Título del mensaje"></ion-input>
     </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validationMessages.title">
+        <div *ngIf="
+          messagesForm.get('title').hasError(validation.type) &&
+          (messagesForm.get('title').dirty || messagesForm.get('title').touched)
+        ">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
     <ion-item>
       <ion-label position="stacked">Contenido</ion-label>
-      <ion-textarea placeholder="Un contenido..."></ion-textarea>
+      <ion-textarea formControlName="description" placeholder="Un contenido..."></ion-textarea>
     </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validationMessages.description">
+        <div *ngIf="
+          messagesForm.get('description').hasError(validation.type) &&
+          (messagesForm.get('description').dirty || messagesForm.get('description').touched)
+        ">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
     <ion-item>
       <ion-label position="stacked">Video destacado</ion-label>
-      <ion-input placeholder="https://www.youtube.com/watch?v=qGh7uc5PQuM"></ion-input>
+      <ion-input formControlName="videoUrl" placeholder="https://www.youtube.com/watch?v=qGh7uc5PQuM"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Imagen</ion-label>
-      <ion-input accept=".jpg, .jpeg, .png" type="file"></ion-input>
+      <ion-input (change)="handleFileInput($event.target.files)" accept=".jpg, .jpeg, .png" type="file"></ion-input>
     </ion-item>
     <ion-toolbar>
+      <div>{{messagesForm.value.send_to_all}}</div>
       <ion-buttons slot="primary">
         <ion-button
           fill="outline"
-          color="primary">
+          color="primary"
+          type="submit"
+          [disabled]="!messagesForm.valid || (messagesForm.value.student === '' && !messagesForm.value.send_to_all)">
           Enviar
         </ion-button>
       </ion-buttons>
