@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StudentsState } from 'src/app/reducers/students';
 import { select } from '@angular-redux/store';
@@ -13,6 +13,8 @@ import { MessagesService, SendMessageData } from 'src/app/services/messages.serv
 export class MessagesCardComponent implements OnInit {
 
   @select(['students', 'data']) students$: Observable<StudentsState>;
+  @select(['messages', 'sending']) sending$: Observable<boolean>;
+  @ViewChild('imageFile', {static: false}) imageFile: ElementRef;
 
   messagesForm: FormGroup;
   fileToUpload: File = null;
@@ -48,7 +50,7 @@ export class MessagesCardComponent implements OnInit {
     this.fileToUpload = files.item(0);
   }
 
-  sendMessage(data: any) {
+  async sendMessage(data: any) {
 
     const formData: SendMessageData = {
       ...data,
@@ -56,7 +58,15 @@ export class MessagesCardComponent implements OnInit {
       imageFile: this.fileToUpload
     };
 
-    this.messagesService.sendMessage(formData);
+    await this.messagesService.sendMessage(formData);
+
+    this.resetMessageForm();
+  }
+
+  resetMessageForm() {
+    this.messagesForm.reset();
+    this.fileToUpload = null;
+    this.imageFile.value = null;
   }
 
 }

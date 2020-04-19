@@ -48,7 +48,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Imagen</ion-label>
-      <ion-input (change)="handleFileInput($event.target.files)" accept=".jpg, .jpeg, .png" type="file"></ion-input>
+      <ion-input #imageFile (change)="handleFileInput($event.target.files)" accept=".jpg, .jpeg, .png" type="file"></ion-input>
     </ion-item>
     <ion-toolbar>
       <div>{{messagesForm.value.send_to_all}}</div>
@@ -57,7 +57,10 @@
           fill="outline"
           color="primary"
           type="submit"
-          [disabled]="!messagesForm.valid || (messagesForm.value.student === '' && !messagesForm.value.send_to_all)">
+          [disabled]="
+            (!messagesForm.valid || (messagesForm.value.student === '' && !messagesForm.value.send_to_all)) ||
+            (sending$ | async)
+          ">
           Enviar
         </ion-button>
       </ion-buttons>

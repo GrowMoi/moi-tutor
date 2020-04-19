@@ -7,6 +7,8 @@ import { StudentsService } from 'src/app/services/students.service';
 import { MockStudentsService } from 'src/__mocks__/students.service.mock';
 import { MessagesService } from 'src/app/services/messages.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgReduxModule } from '@angular-redux/store';
+import { IonicStorageModule } from '@ionic/storage';
 
 describe('MessagesCardComponent', () => {
   let component: MessagesCardComponent;
@@ -24,7 +26,8 @@ describe('MessagesCardComponent', () => {
       }],
       imports: [
         IonicModule.forRoot(),
-        ReactiveFormsModule
+        NgReduxModule,
+        IonicStorageModule.forRoot(),
       ]
     }).compileComponents();
 
