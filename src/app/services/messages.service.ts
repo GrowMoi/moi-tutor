@@ -8,7 +8,7 @@ import { NgRedux } from '@angular-redux/store';
 
 export interface SendMessageData {
   student: number;
-  send_to_all: boolean;
+  sendToAll: boolean;
   title: string;
   description: string;
   imageFile: File;
@@ -31,7 +31,7 @@ export class MessagesService {
     const formData: FormData = new FormData();
     const now = Date.now();
     formData.append('notification[students][]', `${data.student}`);
-    formData.append('notification[send_to_all]', `${data.send_to_all}`);
+    formData.append('notification[send_to_all]', `${data.sendToAll}`);
     formData.append('notification[title]', data.title);
     formData.append('notification[description]', data.description);
 

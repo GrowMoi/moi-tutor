@@ -56,7 +56,7 @@ describe('MessagesCardComponent', () => {
     const spy = spyOn(messagesService, 'sendMessage');
     const formData = {
       student: 6199,
-      send_to_all: false,
+      sendToAll: false,
       title: 'a title',
       description: 'a description',
     };

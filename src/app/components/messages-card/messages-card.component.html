@@ -2,7 +2,7 @@
   <form [formGroup]="messagesForm" (ngSubmit)="sendMessage(messagesForm.value)">
     <ion-item>
       <ion-label>Enviar a</ion-label>
-      <ion-select formControlName="student" [disabled]="messagesForm.value.send_to_all === true">
+      <ion-select formControlName="student" [disabled]="messagesForm.value.sendToAll === true">
         <ion-select-option [value]="student.id" *ngFor="let student of students$ | async">
           {{student.username}}
         </ion-select-option>
@@ -10,7 +10,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Enviar a todos</ion-label>
-      <ion-checkbox formControlName="send_to_all" color="primary" slot="start" checked="false"></ion-checkbox>
+      <ion-checkbox formControlName="sendToAll" color="primary" slot="start" checked="false"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Título</ion-label>
@@ -51,14 +51,14 @@
       <ion-input #imageFile (change)="handleFileInput($event.target.files)" accept=".jpg, .jpeg, .png" type="file"></ion-input>
     </ion-item>
     <ion-toolbar>
-      <div>{{messagesForm.value.send_to_all}}</div>
+      <div>{{messagesForm.value.sendToAll}}</div>
       <ion-buttons slot="primary">
         <ion-button
           fill="outline"
           color="primary"
           type="submit"
           [disabled]="
-            (!messagesForm.valid || (messagesForm.value.student === '' && !messagesForm.value.send_to_all)) ||
+            (!messagesForm.valid || (messagesForm.value.student === '' && !messagesForm.value.sendToAll)) ||
             (sending$ | async)
           ">
           Enviar

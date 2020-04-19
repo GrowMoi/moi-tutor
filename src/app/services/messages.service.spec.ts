@@ -60,7 +60,7 @@ describe('MessagesService', () => {
     const file = new File(['foo', 'bar'], 'foobar.jpg');
     const data = {
       student: 129,
-      send_to_all: false,
+      sendToAll: false,
       title: 'a title',
       description: 'a description',
       imageFile: file,
@@ -73,7 +73,7 @@ describe('MessagesService', () => {
     expect(calls[0].args[0]).toEqual('notification[students][]');
     expect(calls[0].args[1]).toEqual(`${data.student}`);
     expect(calls[1].args[0]).toEqual('notification[send_to_all]');
-    expect(calls[1].args[1]).toEqual(`${data.send_to_all}`);
+    expect(calls[1].args[1]).toEqual(`${data.sendToAll}`);
     expect(calls[2].args[0]).toEqual('notification[title]');
     expect(calls[2].args[1]).toEqual(data.title);
     expect(calls[3].args[0]).toEqual('notification[description]');
@@ -117,7 +117,7 @@ describe('MessagesService', () => {
   const service: MessagesService = TestBed.get(MessagesService);
   const data = {
     student: 129,
-    send_to_all: false,
+    sendToAll: false,
     title: 'a title',
     description: 'a description',
     imageFile: null,
@@ -130,7 +130,7 @@ describe('MessagesService', () => {
   expect(calls[0].args[0]).toEqual('notification[students][]');
   expect(calls[0].args[1]).toEqual(`${data.student}`);
   expect(calls[1].args[0]).toEqual('notification[send_to_all]');
-  expect(calls[1].args[1]).toEqual(`${data.send_to_all}`);
+  expect(calls[1].args[1]).toEqual(`${data.sendToAll}`);
   expect(calls[2].args[0]).toEqual('notification[title]');
   expect(calls[2].args[1]).toEqual(data.title);
   expect(calls[3].args[0]).toEqual('notification[description]');
@@ -170,7 +170,7 @@ describe('MessagesService', () => {
     const file = new File(['foo', 'bar'], 'foobar.jpg');
     const data = {
       student: 129,
-      send_to_all: false,
+      sendToAll: false,
       title: 'a title',
       description: 'a description',
       imageFile: file,

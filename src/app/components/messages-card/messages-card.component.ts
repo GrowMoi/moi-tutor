@@ -35,7 +35,7 @@ export class MessagesCardComponent implements OnInit {
   ) {
     this.messagesForm = this.formBuilder.group({
       student: new FormControl(''),
-      send_to_all: new FormControl(''),
+      sendToAll: new FormControl(''),
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       videoUrl: new FormControl(''),
@@ -54,7 +54,7 @@ export class MessagesCardComponent implements OnInit {
 
     const formData: SendMessageData = {
       ...data,
-      send_to_all: !!data.send_to_all,
+      sendToAll: !!data.sendToAll,
       imageFile: this.fileToUpload
     };
 
