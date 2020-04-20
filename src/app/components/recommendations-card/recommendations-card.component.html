@@ -2,7 +2,7 @@
   <form [formGroup]="recommendationsForm" (ngSubmit)="sendRecommendation(recommendationsForm.value)">
     <ion-item>
       <ion-label>Enviar a</ion-label>
-      <ion-select formControlName="student" [disabled]="recommendationsForm.value.sendToAll === true">
+      <ion-select [(ngModel)]="student" (ionChange)="loadContentsForStudent(student)" formControlName="student" [disabled]="recommendationsForm.value.sendToAll === true">
         <ion-select-option [value]="student.id" *ngFor="let student of students$ | async">
           {{student.username}}
         </ion-select-option>
@@ -10,7 +10,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Enviar a todos</ion-label>
-      <ion-checkbox formControlName="sendToAll" color="primary" slot="start" checked="false"></ion-checkbox>
+      <ion-checkbox [(ngModel)]="sendToAll" (ionChange)="loadContentsForAll(sendToAll)" formControlName="sendToAll" color="primary" slot="start" checked="false"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>Recompensa</ion-label>
@@ -21,22 +21,25 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Contenidos no aprendidos</ion-label>
-      <ion-select value="02" multiple>
-        <ion-select-option value="01">Contenido 1</ion-select-option>
-        <ion-select-option value="02">Contenido 2</ion-select-option>
-        <ion-select-option value="03">Contenido 3</ion-select-option>
-        <ion-select-option value="04">Contenido 4</ion-select-option>
+      <ion-label>Contenidos a recomendar</ion-label>
+      <ion-select formControlName="contents" multiple="true" [disabled]="(!recommendationsForm.value.student && !recommendationsForm.value.sendToAll) || (loadingContents$ | async)">
+        <ion-select-option [value]="content.id" *ngFor="let content of contents$ | async">
+          {{content.title}}
+        </ion-select-option>
       </ion-select>
+      <ion-spinner name="lines-small" *ngIf="loadingContents$ | async" class="moi-recommendations-spinner"></ion-spinner>
     </ion-item>
     <ion-toolbar>
       <ion-buttons slot="primary">
         <ion-button color="secondary"
-          fill="outline">
+          fill="outline"
+          disabled>
           Crear recompensa
         </ion-button>
         <ion-button color="primary"
-          fill="outline">
+          fill="outline"
+          type="submit"
+          [disabled]="validateForm(recommendationsForm)">
           Enviar
         </ion-button>
       </ion-buttons>

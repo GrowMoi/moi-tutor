@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { RecommendationsCardComponent } from './recommendations-card.component';
@@ -48,4 +48,23 @@ describe('RecommendationsCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call getContents when select option 1', inject([RecommendationsService], (recommendationsService: RecommendationsService) => {
+    const spy = spyOn(recommendationsService, 'getContents');
+    component.loadContentsForAll(true);
+    expect(spy).toHaveBeenCalled();
+  }));
+
+  it('should call getContents when select option 2', inject([RecommendationsService], (recommendationsService: RecommendationsService) => {
+    const spy = spyOn(recommendationsService, 'cleanContents');
+    component.loadContentsForAll(false);
+    expect(spy).toHaveBeenCalled();
+  }));
+
+  it('should call getContents when select option 3', inject([RecommendationsService], (recommendationsService: RecommendationsService) => {
+    const spy = spyOn(recommendationsService, 'getContents');
+    component.loadContentsForStudent(3456);
+    const params = spy.calls.first().args[0];
+    expect(params).toBe(3456);
+  }));
 });

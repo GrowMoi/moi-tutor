@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { StudentsState } from 'src/app/reducers/students';
 import { StudentsService } from 'src/app/services/students.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { RecommendationsState } from 'src/app/reducers/recommendations';
+import { RecommendationsState, Achievement } from 'src/app/reducers/recommendations';
 import { RecommendationsService } from 'src/app/services/recommendations.service';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'moi-recommendations-card',
@@ -15,7 +16,10 @@ import { RecommendationsService } from 'src/app/services/recommendations.service
 export class RecommendationsCardComponent implements OnInit {
 
   @select(['students', 'data']) students$: Observable<StudentsState>;
-  @select(['recommendations', 'achievements']) achievements$: Observable<RecommendationsState>;
+  @select(['recommendations', 'achievements']) achievements$: Observable<Array<Achievement>>;
+  @select(['recommendations', 'contents']) contents$: Observable<Array<Content>>;
+  @select(['recommendations', 'loadingContents']) loadingContents$: Observable<boolean>;
+
   recommendationsForm: FormGroup;
 
   constructor(
@@ -27,12 +31,36 @@ export class RecommendationsCardComponent implements OnInit {
       student: new FormControl(''),
       sendToAll: new FormControl(''),
       achievement: new FormControl(''),
+      contents: new FormControl(''),
     });
    }
 
   ngOnInit() {
     this.studentsService.getStudents();
     this.recommendationsService.getAchievements();
+  }
+
+  validateForm(form: any) {
+    const userNotSelected = (!form.value.student && !form.value.sendToAll);
+    const invalidForm = !form.valid;
+    const achievementNotSelected =  form.value.achievement === '';
+    return invalidForm || userNotSelected || achievementNotSelected;
+  }
+
+  sendRecommendation(formData) {
+    // TODO
+  }
+
+  loadContentsForAll(isChecked: boolean) {
+    if (isChecked) {
+      this.recommendationsService.getContents();
+    } else {
+      this.recommendationsService.cleanContents();
+    }
+  }
+
+  loadContentsForStudent(studentId: number) {
+    this.recommendationsService.getContents(studentId);
   }
 
 }

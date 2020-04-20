@@ -57,7 +57,7 @@ export class RecommendationsService {
     this.ngRedux.dispatch({ type: LOAD_CONTENTS });
     return this.httpService.http(options)
       .then((response) => {
-        const contents = response.data && response.data.data ? response.data.data : response.data;;
+        const contents = response.data && response.data.data ? response.data.data : response.data;
         this.ngRedux.dispatch({ type: LOAD_CONTENTS_SUCCESS, payload: contents });
         return response.data;
       })
