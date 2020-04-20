@@ -42,8 +42,10 @@ export const INITIAL_STATE: MoiTutorState = {
   },
   recommendations: {
     achievements: [],
+    contents: [],
     sending: false,
-    loading: false
+    loading: false,
+    loadingContents: false,
   }
 };
 

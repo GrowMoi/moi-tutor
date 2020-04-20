@@ -1,6 +1,6 @@
 import recommendationsReducer, { RecommendationsState } from '../reducers/recommendations';
 import { MoiAction } from '../store';
-import { LOAD_ACHIEVEMENTS_SUCCESS } from '../actions';
+import { LOAD_ACHIEVEMENTS_SUCCESS, LOAD_CONTENTS_SUCCESS } from '../actions';
 
 describe('Reducer: recommendationsReducer', () => {
   let state: RecommendationsState;
@@ -8,7 +8,9 @@ describe('Reducer: recommendationsReducer', () => {
     state = {
       sending: false,
       loading: false,
-      achievements: []
+      achievements: [],
+      contents: [],
+      loadingContents: false,
     };
   });
 
@@ -53,6 +55,30 @@ describe('Reducer: recommendationsReducer', () => {
     const result = recommendationsReducer(state, action);
     expect(result.achievements.length).toBe(3);
     expect(result.achievements).toEqual(data);
+  });
+
+  it('should add contents', () => {
+    const data = [
+      {
+        id: 1047,
+        title: '¿Porqué son necesarios los Números?',
+      },
+      {
+        id: 1048,
+        title: '¿Cómo funciona un Ecosistema?',
+      },
+      {
+        id: 1049,
+        title: '¿Qué es el Aire?',
+      },
+    ];
+    const action: MoiAction = {
+      type: LOAD_CONTENTS_SUCCESS,
+      payload: data
+    };
+    const result = recommendationsReducer(state, action);
+    expect(result.contents.length).toBe(3);
+    expect(result.contents).toEqual(data);
   });
 
 });
