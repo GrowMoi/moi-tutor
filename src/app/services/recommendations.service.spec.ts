@@ -10,7 +10,7 @@ import { MockHttpService } from 'src/__mocks__/http.service.mock';
 import { ToastService } from './toast.service';
 import { MockToastService } from 'src/__mocks__/toast.service.mock';
 import { MoiTutorState } from '../store';
-import { LOAD_ACHIEVEMENTS_SUCCESS, LOAD_ACHIEVEMENTS } from '../actions';
+import { LOAD_ACHIEVEMENTS_SUCCESS, LOAD_ACHIEVEMENTS, LOAD_CONTENTS, LOAD_CONTENTS_SUCCESS } from '../actions';
 
 describe('RecommendationsService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -105,6 +105,88 @@ describe('RecommendationsService', () => {
             url: null
           }
         }
+      ]
+    });
+  }));
+
+  it('should get contents', inject([HttpService], async (httpService: HttpService) => {
+
+    const service: RecommendationsService = TestBed.get(RecommendationsService);
+    let options = null;
+    spyOn(httpService, 'http').and.callFake((apiOptions) => {
+      options = apiOptions;
+      return new Promise((resolve: any) => {
+        const response = {
+          data: []
+        };
+        resolve(response);
+      });
+    });
+
+
+    await service.getContents(1234);
+
+    expect(options).toEqual({
+      method: 'get',
+      url: '/tutor/dashboard/get_contents',
+      params: {
+        user_id: 1234
+      }
+    });
+  }));
+
+  it('should add achievements to the store', inject([HttpService, NgRedux], async (
+    httpService: HttpService,
+    ngRedux: NgRedux<MoiTutorState>
+  ) => {
+
+    const service: RecommendationsService = TestBed.get(RecommendationsService);
+    let options = null;
+    spyOn(httpService, 'http').and.callFake((apiOptions) => {
+      options = apiOptions;
+      return new Promise((resolve: any) => {
+        const response = {
+          data: [
+            {
+              id: 1047,
+              title: '¿Porqué son necesarios los Números?',
+            },
+            {
+              id: 1048,
+              title: '¿Cómo funciona un Ecosistema?',
+            },
+            {
+              id: 1049,
+              title: '¿Qué es el Aire?',
+            },
+          ]
+        };
+        resolve(response);
+      });
+    });
+
+    const spy = spyOn(ngRedux, 'dispatch');
+
+    await service.getContents();
+
+    const calls =  spy.calls.all();
+
+    expect(calls[0].args[0]).toEqual({type: LOAD_CONTENTS });
+    expect(calls[1].args[0]).toEqual({
+      type: LOAD_CONTENTS_SUCCESS,
+      payload: [
+        {
+          id: 1047,
+          title: '¿Porqué son necesarios los Números?',
+        },
+        {
+          id: 1048,
+          title: '¿Cómo funciona un Ecosistema?',
+        },
+        {
+          id: 1049,
+          title: '¿Qué es el Aire?',
+        },
       ]
     });
   }));

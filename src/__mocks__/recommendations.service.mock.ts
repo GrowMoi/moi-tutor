@@ -4,4 +4,17 @@ export class MockRecommendationsService {
       resolve();
     });
   }
+
+  getContents() {
+    return new Promise((resolve) => {
+      resolve();
+    });
+  }
+
+  cleanContents() {
+    return new Promise((resolve) => {
+      resolve();
+    });
+  }
+
 }
