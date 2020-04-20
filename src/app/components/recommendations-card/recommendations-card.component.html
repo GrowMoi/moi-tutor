@@ -3,7 +3,7 @@
     <ion-item>
       <ion-label>Enviar a</ion-label>
       <ion-select [(ngModel)]="student" (ionChange)="loadContentsForStudent(student)" formControlName="student" [disabled]="recommendationsForm.value.sendToAll === true">
-        <ion-select-option [value]="student.id" *ngFor="let student of students$ | async">
+        <ion-select-option [value]="student.id" *ngFor="let student of students">
           {{student.username}}
         </ion-select-option>
       </ion-select>
@@ -39,7 +39,7 @@
         <ion-button color="primary"
           fill="outline"
           type="submit"
-          [disabled]="validateForm(recommendationsForm)">
+          [disabled]="validateForm(recommendationsForm) || (sending$ | async)">
           Enviar
         </ion-button>
       </ion-buttons>

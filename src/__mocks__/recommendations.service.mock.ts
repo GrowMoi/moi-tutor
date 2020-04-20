@@ -17,4 +17,10 @@ export class MockRecommendationsService {
     });
   }
 
+  sendRecommendation() {
+    return new Promise((resolve) => {
+      resolve();
+    });
+  }
+
 }

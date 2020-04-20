@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
-import { StudentsState } from 'src/app/reducers/students';
+import { Student } from 'src/app/reducers/students';
 import { StudentsService } from 'src/app/services/students.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { RecommendationsState, Achievement } from 'src/app/reducers/recommendations';
+import { Achievement } from 'src/app/reducers/recommendations';
 import { RecommendationsService } from 'src/app/services/recommendations.service';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 
@@ -15,12 +15,14 @@ import { Content } from '@angular/compiler/src/render3/r3_ast';
 })
 export class RecommendationsCardComponent implements OnInit {
 
-  @select(['students', 'data']) students$: Observable<StudentsState>;
+  @select(['students', 'data']) students$: Observable<Student[]>;
   @select(['recommendations', 'achievements']) achievements$: Observable<Array<Achievement>>;
   @select(['recommendations', 'contents']) contents$: Observable<Array<Content>>;
   @select(['recommendations', 'loadingContents']) loadingContents$: Observable<boolean>;
+  @select(['recommendations', 'sending']) sending$: Observable<boolean>;
 
   recommendationsForm: FormGroup;
+  students: Student[];
 
   constructor(
     private studentsService: StudentsService,
@@ -38,6 +40,9 @@ export class RecommendationsCardComponent implements OnInit {
   ngOnInit() {
     this.studentsService.getStudents();
     this.recommendationsService.getAchievements();
+    this.students$.subscribe((students = []) => {
+      this.students = students.filter(item => item.status === 'accepted');
+    });
   }
 
   validateForm(form: any) {
@@ -47,8 +52,21 @@ export class RecommendationsCardComponent implements OnInit {
     return invalidForm || userNotSelected || achievementNotSelected;
   }
 
-  sendRecommendation(formData) {
-    // TODO
+  sendRecommendation(data) {
+    const formData = {
+      ...data
+    };
+
+    if (formData.sendToAll) {
+      formData.students = this.students.map(item => item.id);
+    } else {
+      formData.students = [formData.student];
+    }
+
+    delete formData.sendToAll;
+    delete formData.student;
+
+    this.recommendationsService.sendRecommendation(formData);
   }
 
   loadContentsForAll(isChecked: boolean) {

@@ -6,6 +6,9 @@ import {
   LOAD_CONTENTS,
   LOAD_CONTENTS_SUCCESS,
   LOAD_CONTENTS_ERROR,
+  SENDING_RECOMMENDATIONS,
+  SEND_RECOMMENDATIONS_SUCCESS,
+  SEND_RECOMMENDATIONS_ERROR,
 } from '../actions';
 import _ from 'lodash';
 
@@ -77,6 +80,27 @@ export default function recommendationsReducer(state: RecommendationsState = {} 
       const newState = {
         ...state,
         loadingContents: false
+      };
+      return newState;
+    }
+    case SENDING_RECOMMENDATIONS: {
+      const newState = {
+        ...state,
+        sending: true
+      };
+      return newState;
+    }
+    case SEND_RECOMMENDATIONS_SUCCESS: {
+      const newState = {
+        ...state,
+        sending: false
+      };
+      return newState;
+    }
+    case SEND_RECOMMENDATIONS_ERROR: {
+      const newState = {
+        ...state,
+        sending: false
       };
       return newState;
     }

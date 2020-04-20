@@ -10,7 +10,13 @@ import { MockHttpService } from 'src/__mocks__/http.service.mock';
 import { ToastService } from './toast.service';
 import { MockToastService } from 'src/__mocks__/toast.service.mock';
 import { MoiTutorState } from '../store';
-import { LOAD_ACHIEVEMENTS_SUCCESS, LOAD_ACHIEVEMENTS, LOAD_CONTENTS, LOAD_CONTENTS_SUCCESS } from '../actions';
+import {
+  LOAD_ACHIEVEMENTS_SUCCESS,
+  LOAD_ACHIEVEMENTS, LOAD_CONTENTS,
+  LOAD_CONTENTS_SUCCESS,
+  SENDING_RECOMMENDATIONS,
+  SEND_RECOMMENDATIONS_SUCCESS
+} from '../actions';
 
 describe('RecommendationsService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -188,6 +194,49 @@ describe('RecommendationsService', () => {
           title: '¿Qué es el Aire?',
         },
       ]
+    });
+  }));
+
+  it('should send recommendations', inject([HttpService, NgRedux], async (
+    httpService: HttpService,
+    ngRedux: NgRedux<MoiTutorState>
+  ) => {
+
+    const service: RecommendationsService = TestBed.get(RecommendationsService);
+    let options = null;
+    spyOn(httpService, 'http').and.callFake((apiOptions) => {
+      options = apiOptions;
+      return new Promise((resolve: any) => {
+        const response = {
+          data: {
+            message: 'a message'
+          }
+        };
+        resolve(response);
+      });
+    });
+
+    const spyRedux = spyOn(ngRedux, 'dispatch');
+
+    await service.sendRecommendation({
+        achievement: 1,
+        contents: [1, 2, 3],
+        students: [4, 5, 6],
+    });
+
+    const calls =  spyRedux.calls.all();
+    expect(calls[0].args[0]).toEqual({type: SENDING_RECOMMENDATIONS });
+    expect(calls[1].args[0]).toEqual({type: SEND_RECOMMENDATIONS_SUCCESS });
+    expect(options).toEqual({
+      method: 'post',
+      url: '/tutor/recommendations',
+      data: {
+        tutor_recommendation: {
+          tutor_achievement: 1,
+          content_tutor_recommendations: [1, 2, 3],
+          students: [4, 5, 6]
+        }
+      }
     });
   }));
 });

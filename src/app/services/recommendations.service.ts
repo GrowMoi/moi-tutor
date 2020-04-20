@@ -10,8 +10,17 @@ import {
   LOAD_ACHIEVEMENTS_ERROR,
   LOAD_CONTENTS,
   LOAD_CONTENTS_SUCCESS,
-  LOAD_CONTENTS_ERROR
+  LOAD_CONTENTS_ERROR,
+  SENDING_RECOMMENDATIONS,
+  SEND_RECOMMENDATIONS_SUCCESS,
+  SEND_RECOMMENDATIONS_ERROR
 } from '../actions';
+
+export interface RecommendationsData {
+  achievement: number;
+  contents: number[];
+  students: number[];
+}
 
 @Injectable({
   providedIn: 'root'
@@ -70,5 +79,36 @@ export class RecommendationsService {
 
   cleanContents() {
     // TODO
+  }
+
+  sendRecommendation(formData: RecommendationsData) {
+
+    this.ngRedux.dispatch({ type: SENDING_RECOMMENDATIONS });
+    const data = {
+      tutor_recommendation: {
+        tutor_achievement: formData.achievement,
+        content_tutor_recommendations: formData.contents,
+        students: formData.students
+      }
+    };
+
+    return this.httpService.http({
+      method: 'post',
+      url: '/tutor/recommendations',
+      data,
+    })
+      .then((response) => {
+        const message = response.data && response.data.message ? response.data.message : response.data;
+        this.ngRedux.dispatch({ type: SEND_RECOMMENDATIONS_SUCCESS });
+        this.toastService.success(message);
+        return response.data;
+      })
+      .catch((error) => {
+        const message = this.utilsService.getErrorMessage(error);
+        this.ngRedux.dispatch({ type: SEND_RECOMMENDATIONS_ERROR });
+        this.toastService.danger(message);
+        return Promise.reject(error);
+      });
+
   }
 }

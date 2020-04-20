@@ -1,6 +1,6 @@
 import recommendationsReducer, { RecommendationsState } from '../reducers/recommendations';
 import { MoiAction } from '../store';
-import { LOAD_ACHIEVEMENTS_SUCCESS, LOAD_CONTENTS_SUCCESS } from '../actions';
+import { LOAD_ACHIEVEMENTS_SUCCESS, LOAD_CONTENTS_SUCCESS, SEND_RECOMMENDATIONS_SUCCESS, SENDING_RECOMMENDATIONS } from '../actions';
 
 describe('Reducer: recommendationsReducer', () => {
   let state: RecommendationsState;
@@ -79,6 +79,22 @@ describe('Reducer: recommendationsReducer', () => {
     const result = recommendationsReducer(state, action);
     expect(result.contents.length).toBe(3);
     expect(result.contents).toEqual(data);
+  });
+
+  it('should start sending recommendations', () => {
+    const action: MoiAction = {
+      type: SENDING_RECOMMENDATIONS,
+    };
+    const result = recommendationsReducer(state, action);
+    expect(result.sending).toBe(true);
+  });
+
+  it('should send recommendations', () => {
+    const action: MoiAction = {
+      type: SEND_RECOMMENDATIONS_SUCCESS,
+    };
+    const result = recommendationsReducer(state, action);
+    expect(result.sending).toBe(false);
   });
 
 });

@@ -40,6 +40,8 @@ describe('RecommendationsCardComponent', () => {
       }]
     }).compileComponents();
 
+    MockNgRedux.getSelectorStub('recommendations.students');
+
     fixture = TestBed.createComponent(RecommendationsCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -66,5 +68,45 @@ describe('RecommendationsCardComponent', () => {
     component.loadContentsForStudent(3456);
     const params = spy.calls.first().args[0];
     expect(params).toBe(3456);
+  }));
+
+  it('should build data before call sendRecommendation', inject([
+    RecommendationsService
+  ], (recommendationsService: RecommendationsService) => {
+    component.students = [
+      {
+        id: 1,
+        email: 'test1@example.com',
+        name: 'usuario 1',
+        username: 'usuario1',
+        status: 'accepted'
+      },
+      {
+        id: 2,
+        email: 'test2@example.com',
+        name: 'usuario 2',
+        username: 'usuario2',
+        status: 'accepted'
+      },
+      {
+        id: 3,
+        email: 'test3@example.com',
+        name: 'usuario 3',
+        username: 'usuario3',
+        status: 'accepted'
+      },
+    ];
+    const spy = spyOn(recommendationsService, 'sendRecommendation');
+    component.sendRecommendation({
+      sendToAll: true,
+      contents: [123, 456],
+      achievement: 6,
+    });
+    const params = spy.calls.first().args[0];
+    expect(params).toEqual({
+      achievement: 6,
+      contents: [123, 456],
+      students: [1, 2, 3]
+    });
   }));
 });
