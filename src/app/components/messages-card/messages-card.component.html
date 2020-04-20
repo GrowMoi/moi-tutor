@@ -58,7 +58,7 @@
           color="primary"
           type="submit"
           [disabled]="
-            (!messagesForm.valid || (messagesForm.value.student === '' && !messagesForm.value.sendToAll)) ||
+            (!messagesForm.valid || (!messagesForm.value.student && !messagesForm.value.sendToAll)) ||
             (sending$ | async)
           ">
           Enviar
