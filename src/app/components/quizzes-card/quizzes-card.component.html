@@ -10,8 +10,8 @@
     </ion-item>
     <ion-item>
       <ion-label>Enviar a</ion-label>
-      <ion-select formControlName="student">
-        <ion-select-option [value]="student.id" [disabled]="quizzesForm.value.sendToAll === true" *ngFor="let student of students">
+      <ion-select formControlName="student" [disabled]="quizzesForm.value.sendToAll === true">
+        <ion-select-option [value]="student.id" *ngFor="let student of students">
           {{student.username}}
         </ion-select-option>
       </ion-select>
@@ -21,7 +21,7 @@
       <ion-checkbox formControlName="sendToAll" color="primary" checked="false" slot="start"></ion-checkbox>
     </ion-item>
     <ion-item>
-      <ion-button color="primary">
+      <ion-button color="primary" disabled>
         ver preguntas
       </ion-button>
     </ion-item>
@@ -35,7 +35,7 @@
         </ion-button>
         <ion-button color="primary"
           type="submit"
-          [disabled]="validateForm(quizzesForm)"
+          [disabled]="validateForm(quizzesForm) || (sending$ | async)"
           fill="solid">
           Enviar
         </ion-button>

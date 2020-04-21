@@ -1,6 +1,6 @@
 import quizzesReducer, { QuizzesState } from '../reducers/quizzes';
 import { MoiAction } from '../store';
-import { LOAD_LEVELS_SUCCESS } from '../actions';
+import { LOAD_LEVELS_SUCCESS, SENDING_QUIZ, SEND_QUIZ_SUCCESS } from '../actions';
 
 describe('Reducer: quizzesReducer', () => {
   let state: QuizzesState;
@@ -99,6 +99,22 @@ describe('Reducer: quizzesReducer', () => {
     const result = quizzesReducer(state, action);
     expect(result.levels.length).toBe(3);
     expect(result.levels).toEqual(fixedData);
+  });
+
+  it('should start sending quiz', () => {
+    const action: MoiAction = {
+      type: SENDING_QUIZ,
+    };
+    const result = quizzesReducer(state, action);
+    expect(result.sending).toBe(true);
+  });
+
+  it('should send quiz', () => {
+    const action: MoiAction = {
+      type: SEND_QUIZ_SUCCESS,
+    };
+    const result = quizzesReducer(state, action);
+    expect(result.sending).toBe(false);
   });
 
 });

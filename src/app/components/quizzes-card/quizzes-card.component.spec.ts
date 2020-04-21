@@ -11,6 +11,8 @@ import { StudentsService } from 'src/app/services/students.service';
 import { MockStudentsService } from 'src/__mocks__/students.service.mock';
 import { QuizzesService } from 'src/app/services/quizzes.service';
 import { MockQuizzesService } from 'src/__mocks__/quizzes.service.mock';
+import { LoadingService } from 'src/app/services/loading.service';
+import { MockLoadingService } from 'src/__mocks__/loading.service.mock';
 
 describe('QuizzesCardComponent', () => {
   let component: QuizzesCardComponent;
@@ -37,6 +39,9 @@ describe('QuizzesCardComponent', () => {
       }, {
         provide: QuizzesService,
         useClass: MockQuizzesService
+      }, {
+        provide: LoadingService,
+        useClass: MockLoadingService
       }]
     }).compileComponents();
 
@@ -55,5 +60,20 @@ describe('QuizzesCardComponent', () => {
     const spy = spyOn(studentsService, 'getStudents');
     component.ngOnInit();
     expect(spy).toHaveBeenCalled();
+  }));
+
+  it('should call "send quiz"', inject([QuizzesService, LoadingService], async (
+    quizzesService: QuizzesService,
+    loadingService: LoadingService,
+  ) => {
+    const spy = spyOn(quizzesService, 'sendQuiz');
+    const formData = {
+      student: 6199,
+      sendToAll: false,
+      level: 134,
+    };
+    await component.sendQuiz(formData);
+    expect(spy).toHaveBeenCalled();
+    expect(spy.calls.first().args[0]).toEqual(formData);
   }));
 });

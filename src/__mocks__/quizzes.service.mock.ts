@@ -5,4 +5,10 @@ export class MockQuizzesService {
     });
   }
 
+  sendQuiz() {
+    return new Promise((resolve) => {
+      resolve();
+    });
+  }
+
 }

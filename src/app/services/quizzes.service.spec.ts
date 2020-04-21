@@ -10,7 +10,7 @@ import { MockHttpService } from 'src/__mocks__/http.service.mock';
 import { ToastService } from './toast.service';
 import { MockToastService } from 'src/__mocks__/toast.service.mock';
 import { MoiTutorState } from '../store';
-import { LOAD_LEVELS, LOAD_LEVELS_SUCCESS } from '../actions';
+import { LOAD_LEVELS, LOAD_LEVELS_SUCCESS, SENDING_QUIZ, SEND_QUIZ_SUCCESS } from '../actions';
 
 describe('QuizzesService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -109,6 +109,49 @@ describe('QuizzesService', () => {
           ]
         }
       ]
+    });
+  }));
+
+  it('should send quiz', inject([HttpService, NgRedux], async (
+    httpService: HttpService,
+    ngRedux: NgRedux<MoiTutorState>
+  ) => {
+
+    const service: QuizzesService = TestBed.get(QuizzesService);
+    let options = null;
+    spyOn(httpService, 'http').and.callFake((apiOptions) => {
+      options = apiOptions;
+      return new Promise((resolve: any) => {
+        const response = {
+          data: {
+            message: 'a message'
+          }
+        };
+        resolve(response);
+      });
+    });
+
+    const spyRedux = spyOn(ngRedux, 'dispatch');
+
+    await service.sendQuiz({
+        student: 1,
+        level: 345,
+        sendToAll: true,
+    });
+
+    const calls =  spyRedux.calls.all();
+    expect(calls[0].args[0]).toEqual({type: SENDING_QUIZ });
+    expect(calls[1].args[0]).toEqual({type: SEND_QUIZ_SUCCESS });
+    expect(options).toEqual({
+      method: 'post',
+      url: '/tutor/dashboard/create_quiz',
+      data: {
+        quiz: {
+          level_quiz_id: 345,
+          client_id: 1,
+          send_to_all: true
+        }
+      }
     });
   }));
 });

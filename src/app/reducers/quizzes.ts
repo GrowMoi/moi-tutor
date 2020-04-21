@@ -1,5 +1,5 @@
 import { MoiAction } from '../store';
-import { LOAD_LEVELS, LOAD_LEVELS_SUCCESS, LOAD_LEVELS_ERROR } from '../actions';
+import { LOAD_LEVELS, LOAD_LEVELS_SUCCESS, LOAD_LEVELS_ERROR, SENDING_QUIZ, SEND_QUIZ_SUCCESS, SEND_QUIZ_ERROR } from '../actions';
 import _ from 'lodash';
 
 export interface Level {
@@ -51,6 +51,27 @@ export default function quizzesReducer(state: QuizzesState = {} as any, action: 
       const newState = {
         ...state,
         loading: false
+      };
+      return newState;
+    }
+    case SENDING_QUIZ: {
+      const newState = {
+        ...state,
+        sending: true
+      };
+      return newState;
+    }
+    case SEND_QUIZ_SUCCESS: {
+      const newState = {
+        ...state,
+        sending: false
+      };
+      return newState;
+    }
+    case SEND_QUIZ_ERROR: {
+      const newState = {
+        ...state,
+        sending: false
       };
       return newState;
     }
