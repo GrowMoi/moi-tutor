@@ -5,6 +5,7 @@ import studentsReducer, { StudentsState } from './reducers/students';
 import { USER_LOGOUT } from './actions/user';
 import messagesReducer, { MessagesState } from './reducers/messages';
 import recommendationsReducer, { RecommendationsState } from './reducers/recommendations';
+import quizzesReducer, { QuizzesState } from './reducers/quizzes';
 
 export interface MoiTutorState {
   login: LoginState;
@@ -12,6 +13,7 @@ export interface MoiTutorState {
   students: StudentsState;
   messages: MessagesState;
   recommendations: RecommendationsState;
+  quizzes: QuizzesState;
 }
 
 export interface MoiAction {
@@ -46,6 +48,12 @@ export const INITIAL_STATE: MoiTutorState = {
     sending: false,
     loading: false,
     loadingContents: false,
+  },
+  quizzes: {
+    levels: [],
+    loading: false,
+    sending: false,
+    loadingContents: false
   }
 };
 
@@ -55,6 +63,7 @@ const appReducer = combineReducers({
   students: studentsReducer,
   messages: messagesReducer,
   recommendations: recommendationsReducer,
+  quizzes: quizzesReducer,
 });
 
 export const rootReducer: Reducer<MoiTutorState> = (state, action) => {

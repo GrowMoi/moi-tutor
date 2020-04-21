@@ -3,4 +3,5 @@ export * from './students';
 export * from './login';
 export * from './messages';
 export * from './recommendations';
+export * from './quizzes';
 

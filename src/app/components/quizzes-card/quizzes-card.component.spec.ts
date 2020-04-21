@@ -9,6 +9,8 @@ import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { MockNgRedux } from 'src/__mocks__/ng-redux.mock';
 import { StudentsService } from 'src/app/services/students.service';
 import { MockStudentsService } from 'src/__mocks__/students.service.mock';
+import { QuizzesService } from 'src/app/services/quizzes.service';
+import { MockQuizzesService } from 'src/__mocks__/quizzes.service.mock';
 
 describe('QuizzesCardComponent', () => {
   let component: QuizzesCardComponent;
@@ -32,6 +34,9 @@ describe('QuizzesCardComponent', () => {
       }, {
         provide: StudentsService,
         useClass: MockStudentsService
+      }, {
+        provide: QuizzesService,
+        useClass: MockQuizzesService
       }]
     }).compileComponents();
 
