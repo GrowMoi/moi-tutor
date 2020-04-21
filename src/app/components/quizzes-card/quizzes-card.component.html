@@ -1,5 +1,5 @@
 <moi-card title="Enviar un Test" theme="red">
-  <form action="">
+  <form [formGroup]="quizzesForm" (ngSubmit)="sendQuiz(quizzesForm.value)">
     <ion-item>
       <ion-label>Selecciona un nivel</ion-label>
       <ion-select value="03">
@@ -12,14 +12,14 @@
     <ion-item>
       <ion-label>Enviar a</ion-label>
       <ion-select>
-        <ion-select-option [value]="student.id" *ngFor="let student of students">
+        <ion-select-option [value]="student.id" formControlName="student" [disabled]="recommendationsForm.value.sendToAll === true" *ngFor="let student of students">
           {{student.username}}
         </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>Enviar a todos</ion-label>
-      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
+      <ion-checkbox formControlName="sendToAll" color="primary" checked="false" slot="start"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-button color="primary">
@@ -29,12 +29,15 @@
     <ion-toolbar>
       <ion-buttons slot="primary">
         <ion-button color="secondary"
-          fill="outline"
-          disabled="true">
+          fill="solid"
+          disabled="true"
+          disabled>
           Crear nuevo nivel
         </ion-button>
         <ion-button color="primary"
-          fill="outline">
+          type="submit"
+          [disabled]="validateForm(quizzesForm)"
+          fill="solid">
           Enviar
         </ion-button>
       </ion-buttons>

@@ -40,7 +40,7 @@ describe('RecommendationsCardComponent', () => {
       }]
     }).compileComponents();
 
-    MockNgRedux.getSelectorStub('recommendations.students');
+    MockNgRedux.getSelectorStub('students.data');
 
     fixture = TestBed.createComponent(RecommendationsCardComponent);
     component = fixture.componentInstance;
