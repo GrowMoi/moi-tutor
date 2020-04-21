@@ -11,11 +11,10 @@
     </ion-item>
     <ion-item>
       <ion-label>Enviar a</ion-label>
-      <ion-select value="03">
-        <ion-select-option value="01">Juanito</ion-select-option>
-        <ion-select-option value="02">Ana</ion-select-option>
-        <ion-select-option value="03">Pedro</ion-select-option>
-        <ion-select-option value="04">María</ion-select-option>
+      <ion-select>
+        <ion-select-option [value]="student.id" *ngFor="let student of students">
+          {{student.username}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -30,7 +29,8 @@
     <ion-toolbar>
       <ion-buttons slot="primary">
         <ion-button color="secondary"
-          fill="outline">
+          fill="outline"
+          disabled="true">
           Crear nuevo nivel
         </ion-button>
         <ion-button color="primary"
