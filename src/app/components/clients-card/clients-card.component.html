@@ -36,7 +36,7 @@
       <ion-toolbar class="moi-clients-actions-container">
         <ion-buttons slot="end">
           <ion-button [disabled]="(selectedClients.length === 0) || (sending$ | async)"
-            fill="outline"
+            fill="solid"
             color="primary"
             (click)="sendSelectedClients()">
             Enviar Solicitud

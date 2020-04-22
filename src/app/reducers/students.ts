@@ -28,10 +28,7 @@ export default function studentsReducer(state: StudentsState = {} as any, action
     case GET_STUDENTS: {
       const newState = {
         ...state,
-        data: [
-          ...state.data,
-          ...action.payload
-        ]
+        data: action.payload
       };
       return newState;
     }

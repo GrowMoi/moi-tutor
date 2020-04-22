@@ -11,6 +11,8 @@ import { StudentsService } from 'src/app/services/students.service';
 import { MockStudentsService } from 'src/__mocks__/students.service.mock';
 import { RecommendationsService } from 'src/app/services/recommendations.service';
 import { MockRecommendationsService } from 'src/__mocks__/recommendations.service.mock';
+import { LoadingService } from 'src/app/services/loading.service';
+import { MockLoadingService } from 'src/__mocks__/loading.service.mock';
 
 describe('RecommendationsCardComponent', () => {
   let component: RecommendationsCardComponent;
@@ -37,6 +39,9 @@ describe('RecommendationsCardComponent', () => {
       }, {
         provide: RecommendationsService,
         useClass: MockRecommendationsService
+      }, {
+        provide: LoadingService,
+        useClass: MockLoadingService
       }]
     }).compileComponents();
 
@@ -72,7 +77,7 @@ describe('RecommendationsCardComponent', () => {
 
   it('should build data before call sendRecommendation', inject([
     RecommendationsService
-  ], (recommendationsService: RecommendationsService) => {
+  ], async (recommendationsService: RecommendationsService) => {
     component.students = [
       {
         id: 1,
@@ -97,7 +102,7 @@ describe('RecommendationsCardComponent', () => {
       },
     ];
     const spy = spyOn(recommendationsService, 'sendRecommendation');
-    component.sendRecommendation({
+    await component.sendRecommendation({
       sendToAll: true,
       contents: [123, 456],
       achievement: 6,

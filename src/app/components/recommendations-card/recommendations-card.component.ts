@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Achievement } from 'src/app/reducers/recommendations';
 import { RecommendationsService } from 'src/app/services/recommendations.service';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'moi-recommendations-card',
@@ -28,6 +29,7 @@ export class RecommendationsCardComponent implements OnInit {
     private studentsService: StudentsService,
     private formBuilder: FormBuilder,
     private recommendationsService: RecommendationsService,
+    private loadingService: LoadingService,
   ) {
     this.recommendationsForm = this.formBuilder.group({
       student: new FormControl(''),
@@ -52,7 +54,7 @@ export class RecommendationsCardComponent implements OnInit {
     return invalidForm || userNotSelected || achievementNotSelected;
   }
 
-  sendRecommendation(data) {
+  async sendRecommendation(data) {
     const formData = {
       ...data
     };
@@ -66,7 +68,9 @@ export class RecommendationsCardComponent implements OnInit {
     delete formData.sendToAll;
     delete formData.student;
 
-    this.recommendationsService.sendRecommendation(formData);
+    const loading = await this.loadingService.present('Enviando datos...');
+    await this.recommendationsService.sendRecommendation(formData);
+    await loading.dismiss();
   }
 
   loadContentsForAll(isChecked: boolean) {

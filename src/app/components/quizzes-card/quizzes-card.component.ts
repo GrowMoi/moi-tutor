@@ -5,7 +5,6 @@ import { ObservableStore, select } from '@angular-redux/store';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Level } from 'src/app/reducers/quizzes';
 import { QuizzesService } from 'src/app/services/quizzes.service';
-import { LoadingController } from '@ionic/angular';
 import { LoadingService } from 'src/app/services/loading.service';
 @Component({
   selector: 'moi-quizzes-card',

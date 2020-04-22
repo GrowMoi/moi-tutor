@@ -6,6 +6,7 @@ import { ClientsState, Client, ClientMeta } from 'src/app/reducers/clients';
 import { IonInfiniteScroll } from '@ionic/angular';
 import _ from 'lodash';
 import { ToastService } from 'src/app/services/toast.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 interface InfiniteScrollEvents {
   target: any;
@@ -33,7 +34,8 @@ export class ClientsCardComponent implements OnInit {
 
   constructor(
     private clientsService: ClientsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private loadingService: LoadingService,
   ) { }
 
   ngOnInit() {
@@ -69,19 +71,22 @@ export class ClientsCardComponent implements OnInit {
     }
   }
 
-  sendSelectedClients() {
+  async sendSelectedClients() {
     const apiParams = {
       user_ids: this.selectedClients.map<number>(item => item.id)
     };
 
+    const loading = await this.loadingService.present('Enviando datos...');
     this.clientsService.sendRequestToClients(apiParams)
       .subscribe({
         next: async (message: string) => {
           this.cleanSelected();
           this.toastService.success(message);
+          await loading.dismiss();
         },
         error:  async (message: string) => {
           this.toastService.danger(message);
+          await loading.dismiss();
         }
       });
   }

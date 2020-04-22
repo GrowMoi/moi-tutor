@@ -12,7 +12,7 @@
   <div class="moi-dashboard-tabs-container">
     <div class="moi-dashboard-tabs-cards-container" [ngSwitch]="selectedTab">
       <moi-clients-card class="moi-dashboard-card" *ngSwitchCase="cards[0].key"></moi-clients-card>
-      <moi-students-card *ngSwitchCase="cards[1].key"></moi-students-card>
+      <moi-students-card  *ngSwitchCase="cards[1].key"></moi-students-card>
       <moi-messages-card *ngSwitchCase="cards[2].key"></moi-messages-card>
       <moi-quizzes-card *ngSwitchCase="cards[3].key"></moi-quizzes-card>
       <moi-recommendations-card *ngSwitchCase="cards[4].key"></moi-recommendations-card>

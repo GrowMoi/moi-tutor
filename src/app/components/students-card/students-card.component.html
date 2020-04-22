@@ -1,8 +1,8 @@
-<moi-card title="Mis Alumnos" theme="light-green">
+<moi-card title="Mis Alumnos" theme="light-green" height="95%">
   <div class="moi-students-card-container">
     <ion-spinner name="lines" *ngIf="loading$ | async; else mainBlock"></ion-spinner>
     <ng-template #mainBlock>
-      <ion-searchbar></ion-searchbar>
+      <!-- <ion-searchbar></ion-searchbar> -->
       <ion-content class="moi-students-list-content">
         <ion-list>
           <ion-item *ngFor="let student of students$ | async"
@@ -18,24 +18,28 @@
             <!-- <ion-button *ngIf="student.status === 'accepted'" color="secondary">
               <ion-icon slot="icon-only" name="bar-chart-outline"></ion-icon>
             </ion-button> -->
+            <ion-chip *ngIf="!student.status" color="warning">
+              <ion-label>Pendiente</ion-label>
+            </ion-chip>
             <ion-button *ngIf="!student.status"
-              fill="outline"
+              fill="solid"
               color="danger"
               (click)="confirmCancelRequest(student)">
-              Cancelar Solicitud
+              <ion-icon name="close-outline"></ion-icon>
             </ion-button>
+
           </ion-item>
         </ion-list>
       </ion-content>
       <ion-toolbar>
         <ion-buttons slot="primary">
-          <ion-button color="secondary"
-            fill="outline"
-            [disabled]="sending$ | async">
+          <!-- <ion-button color="secondary"
+            fill="solid"
+            disabled>
             Exportar Seleccionados
-          </ion-button>
+          </ion-button> -->
           <ion-button color="primary"
-            fill="outline"
+            fill="solid"
             [disabled]="sending$ | async"
             (click)="exportToExcel()">
             Exportar Todos

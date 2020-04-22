@@ -12,6 +12,8 @@ import { MockStudentsService } from '../../../__mocks__/students.service.mock';
 import { MockAlertController } from 'src/__mocks__/alert.controller.mock';
 import { Student } from 'src/app/reducers/students';
 import { Observable } from 'rxjs';
+import { MockLoadingService } from 'src/__mocks__/loading.service.mock';
+import { LoadingService } from 'src/app/services/loading.service';
 
 describe('StudentsCardComponent', () => {
   let component: StudentsCardComponent;
@@ -41,7 +43,7 @@ describe('StudentsCardComponent', () => {
       {
         provide: AlertController,
         useClass: MockAlertController
-      },
+      }
     ],
     }).compileComponents();
 

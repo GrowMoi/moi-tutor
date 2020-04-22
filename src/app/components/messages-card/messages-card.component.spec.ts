@@ -9,6 +9,8 @@ import { MessagesService } from 'src/app/services/messages.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgReduxModule } from '@angular-redux/store';
 import { IonicStorageModule } from '@ionic/storage';
+import { LoadingService } from 'src/app/services/loading.service';
+import { MockLoadingService } from 'src/__mocks__/loading.service.mock';
 
 describe('MessagesCardComponent', () => {
   let component: MessagesCardComponent;
@@ -23,6 +25,9 @@ describe('MessagesCardComponent', () => {
       providers: [{
         provide: StudentsService,
         useClass: MockStudentsService
+      }, {
+        provide: LoadingService,
+        useClass: MockLoadingService
       }],
       imports: [
         IonicModule.forRoot(),
@@ -49,10 +54,7 @@ describe('MessagesCardComponent', () => {
 
   it('should call "send message"',
     inject([StudentsService, MessagesService],
-    (
-      studentsService: StudentsService,
-      messagesService: MessagesService
-    ) => {
+    async (studentsService: StudentsService, messagesService: MessagesService) => {
     const spy = spyOn(messagesService, 'sendMessage');
     const formData = {
       student: 6199,
@@ -60,7 +62,7 @@ describe('MessagesCardComponent', () => {
       title: 'a title',
       description: 'a description',
     };
-    component.sendMessage(formData);
+    await component.sendMessage(formData);
     expect(spy).toHaveBeenCalled();
   }));
 });

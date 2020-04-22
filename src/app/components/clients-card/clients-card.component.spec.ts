@@ -11,6 +11,8 @@ import { ClientsService } from 'src/app/services/clients.service';
 import { MockClientsService } from 'src/__mocks__/clients.service.mock';
 import { MockFormatPipe } from 'src/__mocks__/format.pipe.mock';
 import { Observable } from 'rxjs';
+import { LoadingService } from 'src/app/services/loading.service';
+import { MockLoadingService } from 'src/__mocks__/loading.service.mock';
 
 interface ClientSendRequestData {
   user_ids: number[];
@@ -43,6 +45,9 @@ describe('ClientsCardComponent', () => {
         {
           provide: FormatPipe,
           useClass: MockFormatPipe
+        }, {
+          provide: LoadingService,
+          useClass: MockLoadingService
         }
       ],
     }).compileComponents();
@@ -146,7 +151,7 @@ describe('ClientsCardComponent', () => {
     expect(component.clients[2].selected).toBe(false);
   });
 
-  it('should send the selected clients ids', inject([ClientsService], (clientsService: ClientsService) => {
+  it('should send the selected clients ids', inject([ClientsService], async (clientsService: ClientsService) => {
 
     const spy = spyOn(clientsService, 'sendRequestToClients').and.callFake((data: ClientSendRequestData) => {
       return new Observable(subscriber => {
@@ -158,8 +163,7 @@ describe('ClientsCardComponent', () => {
     component.selectClient(component.clients[0]);
     component.selectClient(component.clients[1]);
     component.selectClient(component.clients[2]);
-
-    component.sendSelectedClients();
+    await component.sendSelectedClients();
 
     const apiParams = {
       user_ids: [1, 2, 3]
@@ -170,7 +174,7 @@ describe('ClientsCardComponent', () => {
 
   }));
 
-  it('should clean the selected clients list', inject([ClientsService], (clientsService: ClientsService) => {
+  it('should clean the selected clients list', inject([ClientsService], async (clientsService: ClientsService) => {
 
     spyOn(clientsService, 'sendRequestToClients').and.callFake((data: ClientSendRequestData) => {
       return new Observable(subscriber => {
@@ -183,7 +187,7 @@ describe('ClientsCardComponent', () => {
     component.selectClient(component.clients[1]);
     component.selectClient(component.clients[2]);
 
-    component.sendSelectedClients();
+    await component.sendSelectedClients();
 
     expect(component.selectedClients).toEqual([]);
     expect(component.clients[0].selected).toEqual(false);

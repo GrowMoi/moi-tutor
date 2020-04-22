@@ -20,19 +20,19 @@
       <ion-label>Enviar a todos</ion-label>
       <ion-checkbox formControlName="sendToAll" color="primary" checked="false" slot="start"></ion-checkbox>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-button color="primary" disabled>
         ver preguntas
       </ion-button>
-    </ion-item>
+    </ion-item> -->
     <ion-toolbar>
       <ion-buttons slot="primary">
-        <ion-button color="secondary"
+        <!-- <ion-button color="secondary"
           fill="solid"
           disabled="true"
           disabled>
           Crear nuevo nivel
-        </ion-button>
+        </ion-button> -->
         <ion-button color="primary"
           type="submit"
           [disabled]="validateForm(quizzesForm) || (sending$ | async)"

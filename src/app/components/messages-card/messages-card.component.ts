@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StudentsState } from 'src/app/reducers/students';
-import { select } from '@angular-redux/store';
+import { StudentsState, Student } from 'src/app/reducers/students';
+import { select, ObservableStore } from '@angular-redux/store';
 import { StudentsService } from 'src/app/services/students.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessagesService, SendMessageData } from 'src/app/services/messages.service';
+import { LoadingService } from 'src/app/services/loading.service';
+
 @Component({
   selector: 'moi-messages-card',
   templateUrl: './messages-card.component.html',
@@ -12,12 +14,13 @@ import { MessagesService, SendMessageData } from 'src/app/services/messages.serv
 })
 export class MessagesCardComponent implements OnInit {
 
-  @select(['students', 'data']) students$: Observable<StudentsState>;
+  @select(['students', 'data']) students$: ObservableStore<Student[]>;
   @select(['messages', 'sending']) sending$: Observable<boolean>;
   @ViewChild('imageFile', {static: false}) imageFile: any;
 
   messagesForm: FormGroup;
   fileToUpload: File = null;
+  students: Student[];
 
   validationMessages = {
     title: [
@@ -32,6 +35,7 @@ export class MessagesCardComponent implements OnInit {
     private formBuilder: FormBuilder,
     private studentsService: StudentsService,
     private messagesService: MessagesService,
+    private loadingService: LoadingService,
   ) {
     this.messagesForm = this.formBuilder.group({
       student: new FormControl(''),
@@ -44,6 +48,9 @@ export class MessagesCardComponent implements OnInit {
 
   ngOnInit() {
     this.studentsService.getStudents();
+    this.students$.subscribe((students = []) => {
+      this.students = students.filter(item => item.status === 'accepted');
+    });
   }
 
   handleFileInput(files: FileList) {
@@ -58,8 +65,9 @@ export class MessagesCardComponent implements OnInit {
       imageFile: this.fileToUpload
     };
 
+    const loading = await this.loadingService.present('Enviando datos...');
     await this.messagesService.sendMessage(formData);
-
+    await loading.dismiss();
     this.resetMessageForm();
   }
 
