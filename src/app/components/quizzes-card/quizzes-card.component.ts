@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Level } from 'src/app/reducers/quizzes';
 import { QuizzesService } from 'src/app/services/quizzes.service';
 import { LoadingService } from 'src/app/services/loading.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'moi-quizzes-card',
   templateUrl: './quizzes-card.component.html',
@@ -13,9 +14,9 @@ import { LoadingService } from 'src/app/services/loading.service';
 })
 export class QuizzesCardComponent implements OnInit {
 
-  @select(['students', 'data']) students$: ObservableStore<Student[]>;
-  @select(['quizzes', 'levels']) levels$: ObservableStore<Level[]>;
-  @select(['quizzes', 'sending']) sending$: ObservableStore<boolean>;
+  @select(['students', 'data']) students$: Observable<Student[]>;
+  @select(['quizzes', 'levels']) levels$: Observable<Level[]>;
+  @select(['quizzes', 'sending']) sending$: Observable<boolean>;
 
   students: Student[];
   levels: Level[];

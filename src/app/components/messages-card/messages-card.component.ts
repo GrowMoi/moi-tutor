@@ -14,7 +14,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 })
 export class MessagesCardComponent implements OnInit {
 
-  @select(['students', 'data']) students$: ObservableStore<Student[]>;
+  @select(['students', 'data']) students$: Observable<Student[]>;
   @select(['messages', 'sending']) sending$: Observable<boolean>;
   @ViewChild('imageFile', {static: false}) imageFile: any;
 

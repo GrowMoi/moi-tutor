@@ -24,6 +24,8 @@ export class RecommendationsCardComponent implements OnInit {
 
   recommendationsForm: FormGroup;
   students: Student[];
+  sendToAll: boolean;
+  student: number;
 
   constructor(
     private studentsService: StudentsService,
